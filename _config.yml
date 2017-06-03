@@ -81,10 +81,10 @@ logo: "/assets/logo.svg" # Site logo, also used in jekyll-seo-tag
 description: "Alembic is a starting point for Jekyll projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately" # Site description and default description, also used in jekyll-seo-tag
 url: "https://trenki2.github.io" # Site url, also used in jekyll-seo-tag
 baseurl: "/base"
-repo: "https://github.com/daviddarnes/alembic"
-email: "me@daviddarnes.com"
+#repo: "https://github.com/daviddarnes/alembic"
+email: "trenki2@gmx.net"
 # disqus: "alembic-1" # Blog post comments, uncomment the option and set the site ID from your Disqus account
-avatarurl: "https://www.gravatar.com/avatar/6c0377abcf4da91cdd35dea4554b2a4c" # Uses avatars for favicons to get multple sites, eg Gravatar, Twitter, GitHub
+#avatarurl: "https://www.gravatar.com/avatar/6c0377abcf4da91cdd35dea4554b2a4c" # Uses avatars for favicons to get multple sites, eg Gravatar, Twitter, GitHub
 
 # 8. Site navigation
 navigation_header:
@@ -96,14 +96,14 @@ navigation_header:
   Fork Alembic: https://github.com/daviddarnes/alembic
 
 navigation_footer:
-  Created by David Darnes: https://darn.es
+  #Created by David Darnes: https://darn.es
 
 social_links: # Appears in sidebar. Set the urls then uncomment and comment out as desired
-  Twitter: https://twitter.com/DavidDarnes
-  LinkedIn: https://www.linkedin.com/in/daviddarnes
-  Google+: https://plus.google.com/+DavidDarnes
-  GitHub: https://github.com/daviddarnes
-  link: https://darn.es
+  #Twitter: https://twitter.com/DavidDarnes
+  #LinkedIn: https://www.linkedin.com/in/daviddarnes
+  #Google+: https://plus.google.com/+DavidDarnes
+  GitHub: https://github.com/trenki2
+  #link: https://darn.es
   RSS: /feed.xml
 
 sharing_links: # Appear at the bottom of single blog posts, uncomment and comment out as desired. Colours set the button colour
@@ -117,3 +117,6 @@ sharing_links: # Appear at the bottom of single blog posts, uncomment and commen
   # Hacker News: "#ff6600"
   # Designer News: "#2D72D9"
   # Email: ""
+
+kramdown:
+  auto_ids: true
