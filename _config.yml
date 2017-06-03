@@ -29,23 +29,23 @@ paginate: 10 # jekyll-paginate > items per page
 paginate_path: blog/page:num # jekyll-paginate > blog page
 jekyll-mentions: https://twitter.com # jekyll-mentions > service used when @replying
 twitter:
-  username: DavidDarnes # jekyll-seo-tag > Owners twitter username
-author: DavidDarnes # jekyll-seo-tag > default author
+  #username: DavidDarnes # jekyll-seo-tag > Owners twitter username
+author: trenki2 # jekyll-seo-tag > default author
 social: # jekyll-seo-tag > social overrides
-  name: David Darnes # jekyll-seo-tag > real name
+  name: Markus Trenkwalder # jekyll-seo-tag > real name
   links:  # jekyll-seo-tag > social aliases (sameAs)
-    - https://twitter.com/DavidDarnes
-    - https://www.facebook.com/daviddarnes
-    - https://www.linkedin.com/in/daviddarnes
-    - https://plus.google.com/+DavidDarnes
-    - https://github.com/daviddarnes
+  #  - https://twitter.com/DavidDarnes
+  #  - https://www.facebook.com/daviddarnes
+  #  - https://www.linkedin.com/in/daviddarnes
+  #  - https://plus.google.com/+DavidDarnes
+    - https://github.com/trenki2
 
 # 4. Jekyll settings
 sass:
   style: compressed # Style compression
 permalink: pretty  # Permalink style (/YYYY/MM/DD/page-name/)
 excerpt_separator: <!-- more --> # Marks end of excerpt in posts
-timezone: Europe/London # Timezone for blog posts and alike
+timezone: Europe/Vienna # Timezone for blog posts and alike
 
 # 5. Collections
 collections:
@@ -78,7 +78,7 @@ defaults:
 encoding: utf-8 # Make sure the encoding is right
 title: "Trenki's Dev Blog" # Site name or title, also used in jekyll-seo-tag
 logo: "/assets/logo.svg" # Site logo, also used in jekyll-seo-tag
-description: "Alembic is a starting point for Jekyll projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately" # Site description and default description, also used in jekyll-seo-tag
+description: "Trenki's Development Blog'" # Site description and default description, also used in jekyll-seo-tag
 url: "https://trenki2.github.io" # Site url, also used in jekyll-seo-tag
 baseurl: ""
 #repo: "https://github.com/daviddarnes/alembic"

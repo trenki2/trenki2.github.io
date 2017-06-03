@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Using SDL2 with CMake"
-date:   2017-06-02 16:42:00 +0200
+date:   2017-06-03 14:20:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=990"
 categories: Development
 tags: [sdl2, cmake]
