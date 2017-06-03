@@ -10,16 +10,9 @@
 
 # 1. Files excluded from Jekyll builds
 exclude:
-- README.md
-- CODE_OF_CONDUCT.md
-- CONTRIBUTING.md
-- screenshot.png
-- LICENSE
 - CNAME
 - Gemfile
 - Gemfile.lock
-- demo/*
-- alembic-jekyll-theme.gemspec
 
 # 2. Installed Gems
 gems:
@@ -83,11 +76,11 @@ defaults:
 
 # 7. Site settings
 encoding: utf-8 # Make sure the encoding is right
-title: "Alembic" # Site name or title, also used in jekyll-seo-tag
+title: "Trenki's Dev Blog'" # Site name or title, also used in jekyll-seo-tag
 logo: "/assets/logo.svg" # Site logo, also used in jekyll-seo-tag
 description: "Alembic is a starting point for Jekyll projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately" # Site description and default description, also used in jekyll-seo-tag
-url: "https://alembic.darn.es" # Site url, also used in jekyll-seo-tag
-baseurl: "/baseurl"
+url: "https://trenki2.github.io" # Site url, also used in jekyll-seo-tag
+baseurl: "/base"
 repo: "https://github.com/daviddarnes/alembic"
 email: "me@daviddarnes.com"
 # disqus: "alembic-1" # Blog post comments, uncomment the option and set the site ID from your Disqus account
