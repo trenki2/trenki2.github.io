@@ -13,16 +13,10 @@ Linux (Ubuntu 17.04) and  Windows.
 
 <!-- more -->
 
-# Linux
+You need to create a `CMakeLists.txt` file for your project that includes `SDL2`
+and compiles a simple program.
 
-Setting up SDL2 with CMake under Ubuntu Linux is pretty easy. All you need to do
-is install the required dependencies first.
-
-{% highlight bash %}
-sudo apt install cmake libsdl2-dev g++
-{% endhighlight %}
-
-And then create a CMakeLists.txt file for your project.
+You can use the following code:
 
 {% highlight cmake %}
 cmake_minimum_required(VERSION 3.7)
@@ -34,9 +28,18 @@ find_package(SDL2 REQUIRED) include_directories(SDL2Test ${SDL2_INCLUDE_DIRS})
 add_executable(SDL2Test Main.cpp) target_link_libraries(SDL2Test ${SDL2_LIBRARIES})
 {% endhighlight %}
 
+# Linux
+
+Setting up SDL2 with CMake under Ubuntu Linux is pretty easy. All you need to do
+is install the required dependencies first.
+
+{% highlight bash %}
+sudo apt install cmake libsdl2-dev g++
+{% endhighlight %}
+
 Now you can use `cmake` to generate your Makefiles and build your project. To
 include SDL2 headers you just use `#include "SDL.h"`. The correct include paths
-have been set up by cmake.
+have been set up by cmake. For Linux nothing else is required.
 
 # Windows
 
