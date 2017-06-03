@@ -49,7 +49,7 @@ For Windows you have to download the development package
 You can create Visual Studio project files with the CMake GUI under windows but
 when you hit configure it will fail because it will not find the SDL2 Library.
 
-In the configuration window you will see a SDL2_DIR variable. You will have to
+In the configuration window you will see a `SDL2_DIR` variable. You will have to
 point that to the location where you extracted the SDL2 development package.
 
 Before you can reconfigure you also have to create a file `sdl2-config.cmake`
