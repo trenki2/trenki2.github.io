@@ -2,12 +2,14 @@
 layout: post
 title:  "Using SDL2 with CMake"
 date:   2017-06-02 16:42:00 +0200
-categories: programming
+feature_image: "https://unsplash.it/1200/400?image=990"
+categories: Development
+tags: [sdl2, cmake]
 ---
 SDL2 is the newest version of the Simple Directmedia Layer API. It can be used
 together with CMake to build a cross platform multimedia application. In this
 blog post I will describe the necessary steps to use SDL2 with CMake on both
-Linux (Ubuntu 17.04) and Windows.
+Linux (Ubuntu 17.04) and  Windows.
 
 <!-- more -->
 
@@ -80,9 +82,9 @@ int main(int argc, char *argv[])
 
   SDL_Window *window = SDL_CreateWindow(
     "SDL2Test",
-    SDL_WINDOWPOS_UNDEFINED, 
     SDL_WINDOWPOS_UNDEFINED,
-    640, 
+    SDL_WINDOWPOS_UNDEFINED,
+    640,
     480,
     0
   );

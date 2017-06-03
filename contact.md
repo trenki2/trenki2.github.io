@@ -1,7 +1,9 @@
 ---
-title: Thanks!
+title: Contact
 indexing: false
 sitemap: false
 ---
 
-Thanks for getting in touch! We'll respond as soon as we can.
+You can leave me a message.
+
+{% include site-form.html %}
