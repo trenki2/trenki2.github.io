@@ -75,7 +75,8 @@ Visual Studio project files.
 
 # Test App
 
-You can create a test application to verify that everything works. You could for instance use the following code for that which renders a black window.
+You can create a test application to verify that everything works. You could for
+instance use the following code for that which renders a black window.
 
 {% highlight cpp %}
 #include "SDL.h"

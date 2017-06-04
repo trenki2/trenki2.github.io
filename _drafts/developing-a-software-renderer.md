@@ -96,4 +96,3 @@ triangle faster and skip some test when the block is completely inside the
 triangle.
 
 The block based approach gives better performance and can also be parallelized
-
