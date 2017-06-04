@@ -106,7 +106,8 @@ this script does not work any longer as is. You would have to remove the
 
 ## References
 
-For the interested reader here are two books with working trading strategies:
+For the interested reader here are some books with working trading strategies:
 
 * [Short Term Trading Strategies That Work](https://www.amazon.com/Short-Term-Trading-Strategies-Softcover/dp/1616586389/ref=sr_1_1?ie=UTF8&qid=1496579181&sr=8-1&keywords=short+term+trading+strategies+that+work)
 * [Bollinger Bands® Trading Strategies That Work](https://www.amazon.com/Bollinger-Trading-Strategies-Research-Strategy-ebook/dp/B00FQM36CQ/ref=sr_1_1?ie=UTF8&qid=1496579195&sr=8-1&keywords=bollinger+band+strategies+that+work)
+* [Automated Stock Trading with Zorro](https://www.amazon.com/Automated-Stock-Trading-Zorro-Simons-ebook/dp/B071RQXC9X/ref=sr_1_fkmr0_1?ie=UTF8&qid=1496582333&sr=8-1-fkmr0&keywords=automatic+stock+trading+with+zorro)
