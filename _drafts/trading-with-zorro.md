@@ -56,10 +56,57 @@ the Zorro Support Team and now I am successfully trading stocks.
 
 ## The Strategy
 
+A simple strategy taken from one of the books in the references trades the S&P
+500 index based on the VIX COBE volatility index.
+
+{% highlight cpp %}
+function run()
+{
+  BarPeriod = 1440;
+  StartDate = 2000;
+  Confidence = 100;
+
+  PlotWidth = 700;
+  PlotHeight1 = 400;
+
+  Capital = 10000;
+  var InitialMargin = Margin = Capital * 0.05;
+
+  assetList("AssetsIndexYahoo.csv");
+
+  assetHistory("^VIX", FROM_YAHOO);
+  assetHistory("^GSPC", FROM_YAHOO);
+
+  asset("^VIX");
+  vars vixPrice = series(priceClose());
+  var vixSMA = SMA(vixPrice, 10);
+
+  asset("^GSPC");
+
+  LifeTime = 8;
+  if (NumOpenLong == 0 && vixPrice[0] > vixSMA * (1 + 0.046))
+    enterLong();
+
+  if (NumOpenLong > 0 && vixPrice[0] < vixSMA * (1 - 0.035))
+    exitLong();
+}
+{% endhighlight %}
+
+```
+Monte Carlo Analysis... Median AR 91%
+Profit 77920$  MI 385$  DD 9773$  Capital 10962$
+Trades 285  Win 68.1%  Avg +67.4p  Bars 4
+CAGR 13.75%  PF 1.67  SR 0.69  UI 3%  R2 0.98
+```
+![Screenshot]({{ site.url }}/assets/images/vixspy.png)
+
+__Note:__ Unfortunately Yahoo does not provide free history data any more, so
+this script does not work any longer as is. You would have to remove the
+`assetHistory` calls and get the data from some other source than Yahoo.
+
 ## References
 
 For the interested reader here are two books with working trading strategies:
 
 * [Short Term Trading Strategies That Work](https://www.amazon.com/Short-Term-Trading-Strategies-Softcover/dp/1616586389/ref=sr_1_1?ie=UTF8&qid=1496579181&sr=8-1&keywords=short+term+trading+strategies+that+work)
 * [Bollinger Bands® Trading Strategies That Work](https://www.amazon.com/Bollinger-Trading-Strategies-Research-Strategy-ebook/dp/B00FQM36CQ/ref=sr_1_1?ie=UTF8&qid=1496579195&sr=8-1&keywords=bollinger+band+strategies+that+work)
-

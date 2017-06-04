@@ -69,6 +69,11 @@
     line-height: 1;
 }
 
+pre.highlight {
+    overflow-x: auto;       // this sets the scrolling in x
+    line-height: 1;
+}
+
 .highlight pre code {
     white-space: pre;       // forces <code> to respect <pre> formatting
 }
