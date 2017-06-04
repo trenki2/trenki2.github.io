@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Trading with Zorro"
-date:   2017-06-03 14:20:00 +0200
+date:   2017-06-04 15:11:00 +0200
 feature_image: "https://unsplash.it/1300/400?image=744"
 categories: [Trading]
 tags: [stock, trading, trading automation, zorro]
