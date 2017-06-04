@@ -28,8 +28,6 @@ I did it.
 
 <!-- more -->
 
-
-
 # Setting Up The Environment
 
 We need to create a window where we can render our stuff into. For this we will
@@ -85,5 +83,17 @@ rasterization that helped greatly.
 The interested reader should read both of those resources to understand the
 inner workings of the rasterizer.
 
-I decided to implement the block based rasterizer because it is relatively easy
-to implement, gives good performance and is also very easily parallelized.
+## Simple Filling
+
+I decided to implement a rasterizer based on edge equations. The simple and
+naive version looks like this:
+
+## Block Based
+
+The simple implementation works, but performance is not great. It can be
+improved by a block based approach that allows us to discard blocks outside the
+triangle faster and skip some test when the block is completely inside the
+triangle.
+
+The block based approach gives better performance and can also be parallelized
+
