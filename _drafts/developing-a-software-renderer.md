@@ -5,15 +5,32 @@ date:   2017-06-03 14:20:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=1068"
 categories: [Development, Software Rendering]
 tags: [rasterization, rendering, sdl2, c++]
+excerpt: |
+  This article is about graphics programming. I implemented my own compact software
+  renderer/rasterizer with some nice features like pixel and vertex shaders in C++
+  and in this article I describe how I did it.
 ---
 
-This article is about graphics programming. I implemented my own compact software
-renderer/rasterizer with some nice features like pixel and vertex shaders in C++
-and in this article I describe how I did it.
+Today software rendering has mostly been replaced by GPUs but there are still
+places where it can be useful.
+
+One example is software based occlusion culling ([Software Occlusion
+Culling](https://software.intel.com/en-us/articles/software-occlusion-culling)
+and [Masked Occlusion
+Culling](https://github.com/GameTechDev/MaskedOcclusionCulling)) where a
+software renderer is used to create a hierarchical z-buffer which is in turn
+used to test object visibility and prevent invisible stuff from being sent to
+the GPU.
+
+I implemented my own compact software renderer/rasterizer with some nice
+features like pixel and vertex shaders in C++ and in this article I describe how
+I did it.
 
 <!-- more -->
 
-## Setting Up The Environment
+
+
+# Setting Up The Environment
 
 We need to create a window where we can render our stuff into. For this we will
 use SDL2. It works under Windows and Linux. My blog post [Using SDL2 with
@@ -29,7 +46,7 @@ SDL_FillRect(screen, 0, 0);
 SDL_UpdateWindowSurface(window);
 {% endhighlight %}
 
-## Drawing Pixels
+# Drawing Pixels
 
 Ultimately we want to rasterize a triangle. For this we need to be able to fill
 every pixel inside the triangle with some color. We need a `putpixel` function
@@ -54,7 +71,7 @@ for (int i = 0; i < 10000; i++)
 }
 {% endhighlight %}
 
-## Rasterizing a Triangle
+# Rasterizing a Triangle
 
 There are a lot of resources about triangle rasterization available online but I
 feel like a lot of that information is not very good.
@@ -67,3 +84,6 @@ rasterization that helped greatly.
 
 The interested reader should read both of those resources to understand the
 inner workings of the rasterizer.
+
+I decided to implement the block based rasterizer because it is relatively easy
+to implement, gives good performance and is also very easily parallelized.
