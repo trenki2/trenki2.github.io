@@ -2,7 +2,7 @@
 layout: post
 title:  "Developing a Software Renderer"
 date:   2017-06-03 14:20:00 +0200
-feature_image: "https://unsplash.it/1200/400?image=1068"
+feature_image: "https://unsplash.it/1200/400?image=41"
 categories: [Development, Software Rendering]
 tags: [rasterization, rendering, sdl2, c++]
 excerpt: |
@@ -28,7 +28,7 @@ I did it.
 
 <!-- more -->
 
-# Setting Up The Environment
+## Setting Up The Environment
 
 We need to create a window where we can render our stuff into. For this we will
 use SDL2. It works under Windows and Linux. My blog post [Using SDL2 with
@@ -44,7 +44,7 @@ SDL_FillRect(screen, 0, 0);
 SDL_UpdateWindowSurface(window);
 {% endhighlight %}
 
-# Drawing Pixels
+## Drawing Pixels
 
 Ultimately we want to rasterize a triangle. For this we need to be able to fill
 every pixel inside the triangle with some color. We need a `putpixel` function
@@ -69,7 +69,7 @@ for (int i = 0; i < 10000; i++)
 }
 {% endhighlight %}
 
-# Rasterizing a Triangle
+## Rasterizing a Triangle
 
 There are a lot of resources about triangle rasterization available online but I
 feel like a lot of that information is not very good.
@@ -83,12 +83,12 @@ rasterization that helped greatly.
 The interested reader should read both of those resources to understand the
 inner workings of the rasterizer.
 
-## Simple Filling
+### Simple Filling
 
 I decided to implement a rasterizer based on edge equations. The simple and
 naive version looks like this:
 
-## Block Based
+### Block Based
 
 The simple implementation works, but performance is not great. It can be
 improved by a block based approach that allows us to discard blocks outside the
