@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Using SDL2 with CMake"
-date:   2017-06-03 14:20:00 +0200
+date:   2017-06-02 14:20:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=990"
 categories: Development
 tags: [sdl2, cmake]
@@ -23,10 +23,10 @@ cmake_minimum_required(VERSION 3.7)
 
 project(SDL2Test)
 
-find_package(SDL2 REQUIRED) 
+find_package(SDL2 REQUIRED)
 include_directories(SDL2Test ${SDL2_INCLUDE_DIRS})
 
-add_executable(SDL2Test Main.cpp) 
+add_executable(SDL2Test Main.cpp)
 target_link_libraries(SDL2Test ${SDL2_LIBRARIES})
 {% endhighlight %}
 
