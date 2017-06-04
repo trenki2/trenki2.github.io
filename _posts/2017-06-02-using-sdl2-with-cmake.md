@@ -30,7 +30,7 @@ add_executable(SDL2Test Main.cpp)
 target_link_libraries(SDL2Test ${SDL2_LIBRARIES})
 {% endhighlight %}
 
-# Linux
+## Linux
 
 Setting up SDL2 with CMake under Ubuntu Linux is pretty easy. All you need to do
 is install the required dependencies first.
@@ -43,7 +43,7 @@ Now you can use `cmake` to generate your Makefiles and build your project. To
 include SDL2 headers you just use `#include "SDL.h"`. The correct include paths
 have been set up by cmake. For Linux nothing else is required.
 
-# Windows
+## Windows
 
 For Windows you have to download the development package
 `SDL2-devel-2.0.5-VC.zip` and extract it to some location on your hard disk.
@@ -73,7 +73,7 @@ string(STRIP "${SDL2_LIBRARIES}" SDL2_LIBRARIES)
 After that you now should be able to reconfigure successfully and generate the
 Visual Studio project files.
 
-# Test App
+## Test App
 
 You can create a test application to verify that everything works. You could for
 instance use the following code for that which renders a black window.
