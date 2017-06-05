@@ -85,22 +85,44 @@ inner workings of the rasterizer.
 
 ### Simple Filling
 
-I decided to implement a rasterizer based on edge equations. The simple and
-naive version looks like this:
+I decided to implement a rasterizer based on edge equations. We can encapsulate
+the edge related operation in an `EdgeEquation` class.
 
-To compute the edge equation we can use the following class:
 
 ```cpp
 struct EdgeEquation {
   float a;
   float b;
   float c;
+  bool tie; 
 
   EdgeEquation(const Vertex &v0, const Vertex &v1)
   {
     a = v0.y - v1.y;
     b = v1.x - v0.x;
     c = - (a * (v0.x + v1.x) + b * (v0.y + v1.y)) / 2;
+    tie = a != 0 ? a > 0 : b > 0;
+  }
+
+  /// Evaluate the edge equation for the given point.
+
+  float evaluate(float x, float y)
+  {
+    return a * x + b * y + c;
+  }
+
+  /// Test if the given point is inside the edge.
+
+  bool test(float x, float y)
+  {
+    return test(evaluate(x, y));
+  }
+
+  /// Test for a given evaluated value.
+  
+  bool test(float v)
+  {
+    return (v > 0 || v == 0 && tie);
   }
 };
 ```
@@ -113,21 +135,21 @@ the tie-breaker as described in the references.
 ```cpp
 void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
 {
-  // Compute triangle bounding box
+  // Compute triangle bounding box.
 
   int minX = std::min(std::min(v0.x, v1.x), v2.x);
   int maxX = std::max(std::max(v0.x, v1.x), v2.x);
   int minY = std::min(std::min(v0.y, v1.y), v2.y);
   int maxY = std::max(std::max(v0.y, v1.y), v2.y);
 
-  // Clip to scissor rect
-
+  // Clip to scissor rect.
+  
   minX = std::max(minX, m_minX);
   maxX = std::min(maxX, m_maxX);
   minY = std::max(minY, m_minY);
   maxY = std::min(maxY, m_maxY);
 
-  // Compute edge equations
+  // Compute edge equations.
 
   EdgeEquation e0(v0, v1);
   EdgeEquation e1(v1, v2);
@@ -135,34 +157,21 @@ void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
 
   float area = 2 * (e0.c + e1.c + e2.c);
 
-  // Check if triangle is backfacing
-  
+  // Check if triangle is backfacing.
+
   if (area < 0)
-      return;
+    return;
 
-  for (int x = minX; x <= maxX; x++)
+  // Add 0.5 to sample at pixel centers.
+
+  for (float x = minX + 0.5f, xm = maxX + 0.5f; x <= xm; x += 1.0f)
+  for (float y = minY + 0.5f, ym = maxY + 0.5f; y <= ym; y += 1.0f)
   {
-    for (int y = minY; y <= maxY; y++)
-    {
-      float ev0 = e0.a * x + e0.b * y + e0.c;
-      bool t0 = e0.a != 0 ? e0.a > 0 : e0.b > 0;
-      if (!(ev0 > 0 || ev0 == 0 && t0))
-          continue;
-
-      float ev1 = e1.a * x + e1.b * y + e1.c;
-      bool t1 = e1.a != 0 ? e1.a > 0 : e1.b > 0;
-      if (!(ev1 > 0 || ev1 == 0 && t1))
-          continue;
-
-      float ev2 = e2.a * x + e2.b * y + e2.c;
-      bool t2 = e2.a != 0 ? e2.a > 0 : e2.b > 0;
-      if (!(ev2 > 0 || ev2 == 0 && t2))
-          continue;
-
+    if (e0.test(x, y) && e1.test(x, y) && e2.test(x, y))
       putpixel(m_surface, x, y, 0xffffffff);
-    }
   }
 }
+
 ```
 
 ![Screenshot]({{ site.url }}/assets/images/software-rendering/triangle1.png){: .align-center}
