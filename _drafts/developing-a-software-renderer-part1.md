@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Developing a Software Renderer - Part 1"
+title:  "Developing a Software Renderer Part 1"
 date:   2017-06-05 08:22:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
 categories: [Development, Software Rendering]
@@ -154,7 +154,7 @@ void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
   EdgeEquation e1(v1, v2);
   EdgeEquation e2(v2, v0);
 
-  float area = 2 * (e0.c + e1.c + e2.c);
+  float area = 0.5 * (e0.c + e1.c + e2.c);
 
   // Check if triangle is backfacing.
 
