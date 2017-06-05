@@ -126,6 +126,41 @@ struct EdgeEquation {
 };
 ```
 
+We also want to interpolate colors across the triangle. Later we also want to
+interpolate texture coordinates and in the general case arbitrary per vertex
+parameters. For this we create a `ParameterEquation` class.
+
+```cpp
+struct ParameterEquation {
+  float a;
+  float b;
+  float c;
+
+  ParameterEquation(
+    float p0,
+    float p1, 
+    float p2, 
+    const EdgeEquation &e0, 
+    const EdgeEquation &e1, 
+    const EdgeEquation &e2, 
+    float area)
+  {
+    float factor = 1.0f / (2.0f * area);
+
+    a = factor * (p0 * e0.a + p1 * e1.a + p2 * e2.a);
+    b = factor * (p0 * e0.b + p1 * e1.b + p2 * e2.b);
+    c = factor * (p0 * e0.c + p1 * e1.c + p2 * e2.c);
+  }
+
+  /// Evaluate the parameter equation for the given point.
+
+  float evaluate(float x, float y)
+  {
+    return a * x + b * y + c;
+  }
+};
+```
+
 Then we can go on and rasterize the triangle. We compute the bounding box of the
 triangle, restrict it to the scissor rectangle, cull backfacing triangles and
 then fill all the pixels inside the triangle while obeying the fill rule with
@@ -167,15 +202,19 @@ void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
   for (float y = minY + 0.5f, ym = maxY + 0.5f; y <= ym; y += 1.0f)
   {
     if (e0.test(x, y) && e1.test(x, y) && e2.test(x, y))
-      putpixel(m_surface, x, y, 0xffffffff);
+    {
+      int rint = r.evaluate(x, y) * 255;
+      int gint = g.evaluate(x, y) * 255;
+      int bint = b.evaluate(x, y) * 255;
+      Uint32 color = SDL_MapRGB(m_surface->format, rint, gint, bint);
+      putpixel(m_surface, x, y, color);
+    }
   }
 }
 
 ```
 
 ![Screenshot]({{ site.url }}/assets/images/software-rendering/triangle1.png){: .align-center}
-
-### Adding Color
 
 ### Block Based
 
@@ -184,4 +223,4 @@ improved by a block based approach that allows us to discard blocks outside the
 triangle faster and skip some test when the block is completely inside the
 triangle.
 
-The block based approach gives better performance and can also be parallelized
+The block based approach gives better performance and can also be parallelized.
