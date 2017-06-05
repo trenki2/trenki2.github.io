@@ -88,13 +88,12 @@ inner workings of the rasterizer.
 I decided to implement a rasterizer based on edge equations. We can encapsulate
 the edge related operation in an `EdgeEquation` class.
 
-
 ```cpp
 struct EdgeEquation {
   float a;
   float b;
   float c;
-  bool tie; 
+  bool tie;
 
   EdgeEquation(const Vertex &v0, const Vertex &v1)
   {
@@ -119,7 +118,7 @@ struct EdgeEquation {
   }
 
   /// Test for a given evaluated value.
-  
+
   bool test(float v)
   {
     return (v > 0 || v == 0 && tie);
@@ -143,7 +142,7 @@ void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
   int maxY = std::max(std::max(v0.y, v1.y), v2.y);
 
   // Clip to scissor rect.
-  
+
   minX = std::max(minX, m_minX);
   maxX = std::min(maxX, m_maxX);
   minY = std::max(minY, m_minY);
