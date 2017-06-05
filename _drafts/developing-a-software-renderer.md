@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Developing a Software Renderer"
-date:   2017-06-03 14:20:00 +0200
+date:   2017-06-05 08:22:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
 categories: [Development, Software Rendering]
 tags: [rasterization, rendering, sdl2, c++]
@@ -38,11 +38,11 @@ necessary steps required to setup SDL2 with CMake.
 Once you have set this up you can remove the code which uses the `SDL_Renderer`
 and use the following to render directly to the screen without a renderer:
 
-{% highlight cpp %}
+```cpp
 SDL_Surface *screen = SDL_GetWindowSurface(window);
 SDL_FillRect(screen, 0, 0);
 SDL_UpdateWindowSurface(window);
-{% endhighlight %}
+```
 
 ## Drawing Pixels
 
@@ -56,7 +56,7 @@ An implementation of such a function can be found
 
 You can then draw a lot of pixels like this:
 
-{% highlight cpp %}
+```cpp
 for (int i = 0; i < 10000; i++)
 {
   int x = random() % 640;
@@ -67,7 +67,7 @@ for (int i = 0; i < 10000; i++)
 
   putpixel(screen, x, y, SDL_MapRGB(screen->format, r, g, b));
 }
-{% endhighlight %}
+```
 
 ## Rasterizing a Triangle
 
@@ -87,6 +87,87 @@ inner workings of the rasterizer.
 
 I decided to implement a rasterizer based on edge equations. The simple and
 naive version looks like this:
+
+To compute the edge equation we can use the following class:
+
+```cpp
+struct EdgeEquation {
+  float a;
+  float b;
+  float c;
+
+  EdgeEquation(const Vertex &v0, const Vertex &v1)
+  {
+    a = v0.y - v1.y;
+    b = v1.x - v0.x;
+    c = - (a * (v0.x + v1.x) + b * (v0.y + v1.y)) / 2;
+  }
+};
+```
+
+Then we can go on and rasterize the triangle. We compute the bounding box of the
+triangle, restrict it to the scissor rectangle, cull backfacing triangles and
+then fill all the pixels inside the triangle while obeying the fill rule with
+the tie-breaker as described in the references.
+
+```cpp
+void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
+{
+  // Compute triangle bounding box
+
+  int minX = std::min(std::min(v0.x, v1.x), v2.x);
+  int maxX = std::max(std::max(v0.x, v1.x), v2.x);
+  int minY = std::min(std::min(v0.y, v1.y), v2.y);
+  int maxY = std::max(std::max(v0.y, v1.y), v2.y);
+
+  // Clip to scissor rect
+
+  minX = std::max(minX, m_minX);
+  maxX = std::min(maxX, m_maxX);
+  minY = std::max(minY, m_minY);
+  maxY = std::min(maxY, m_maxY);
+
+  // Compute edge equations
+
+  EdgeEquation e0(v0, v1);
+  EdgeEquation e1(v1, v2);
+  EdgeEquation e2(v2, v0);
+
+  float area = 2 * (e0.c + e1.c + e2.c);
+
+  // Check if triangle is backfacing
+  
+  if (area < 0)
+      return;
+
+  for (int x = minX; x <= maxX; x++)
+  {
+    for (int y = minY; y <= maxY; y++)
+    {
+      float ev0 = e0.a * x + e0.b * y + e0.c;
+      bool t0 = e0.a != 0 ? e0.a > 0 : e0.b > 0;
+      if (!(ev0 > 0 || ev0 == 0 && t0))
+          continue;
+
+      float ev1 = e1.a * x + e1.b * y + e1.c;
+      bool t1 = e1.a != 0 ? e1.a > 0 : e1.b > 0;
+      if (!(ev1 > 0 || ev1 == 0 && t1))
+          continue;
+
+      float ev2 = e2.a * x + e2.b * y + e2.c;
+      bool t2 = e2.a != 0 ? e2.a > 0 : e2.b > 0;
+      if (!(ev2 > 0 || ev2 == 0 && t2))
+          continue;
+
+      putpixel(m_surface, x, y, 0xffffffff);
+    }
+  }
+}
+```
+
+![Screenshot]({{ site.url }}/assets/images/software-rendering/triangle1.png){: .align-center}
+
+### Adding Color
 
 ### Block Based
 

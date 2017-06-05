@@ -1,0 +1,36 @@
+
+/* Syntax highlighting adjustments */
+.highlight {
+    line-height: 1;
+}
+
+.highlight pre {
+    overflow-x: auto;       
+}
+
+.highlight pre code * {
+    white-space: nowrap;
+}
+
+.highlight pre code {
+    white-space: pre;      
+}
+
+pre.highlight {
+    overflow-x: auto;       
+}
+
+pre.highlight code * {
+    white-space: nowrap;
+}
+
+pre.highlight code {
+    white-space: pre; 
+}
+
+/* Utility */
+
+.align-center {
+    margin: 0 auto;
+    display: block;
+}
