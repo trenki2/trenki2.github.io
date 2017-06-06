@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Developing a Software Renderer Part 1"
-date:   2017-06-05 08:22:00 +0200
+date:   2017-06-06 18:14:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
 categories: [Development, Software Rendering]
 tags: [rasterization, rendering, sdl2, c++]
@@ -128,7 +128,7 @@ struct EdgeEquation {
 
 We also want to interpolate colors across the triangle. Later we also want to
 interpolate texture coordinates and in the general case arbitrary per vertex
-parameters. For this we create a `ParameterEquation` class.
+attributes. For this we create a `ParameterEquation` class.
 
 ```cpp
 struct ParameterEquation {
@@ -220,11 +220,15 @@ void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
 
 ![Screenshot]({{ site.url }}/assets/images/software-rendering/triangle1.png){: .align-center}
 
-### Block Based
+## Conclusion
 
 The simple implementation works, but performance is not great. It can be
 improved by a block based approach that allows us to discard blocks outside the
 triangle faster and skip some test when the block is completely inside the
-triangle.
+triangle. This will be covered in the next part of this series.
 
-The block based approach gives better performance and can also be parallelized.
+Other improvements are the support of texture coordinates and other per vertex
+parameters, multi-threaded rasterization and a pixel shader framework that
+allows us to configure the per pixel operations in a flexible manner to support
+texture mapping, alpha blending and other stuff. These are also topics that will
+be covered in the comming posts.
