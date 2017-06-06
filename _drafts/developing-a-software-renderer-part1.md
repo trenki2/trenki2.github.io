@@ -138,11 +138,11 @@ struct ParameterEquation {
 
   ParameterEquation(
     float p0,
-    float p1, 
-    float p2, 
-    const EdgeEquation &e0, 
-    const EdgeEquation &e1, 
-    const EdgeEquation &e2, 
+    float p1,
+    float p2,
+    const EdgeEquation &e0,
+    const EdgeEquation &e1,
+    const EdgeEquation &e2,
     float area)
   {
     float factor = 1.0f / (2.0f * area);
@@ -231,4 +231,4 @@ Other improvements are the support of texture coordinates and other per vertex
 parameters, multi-threaded rasterization and a pixel shader framework that
 allows us to configure the per pixel operations in a flexible manner to support
 texture mapping, alpha blending and other stuff. These are also topics that will
-be covered in the comming posts.
+be covered in the next posts.
