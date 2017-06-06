@@ -228,7 +228,7 @@ triangle faster and skip some test when the block is completely inside the
 triangle. This will be covered in the next part of this series.
 
 Other improvements are the support of texture coordinates and other per vertex
-parameters, multi-threaded rasterization and a pixel shader framework that
-allows us to configure the per pixel operations in a flexible manner to support
-texture mapping, alpha blending and other stuff. These are also topics that will
-be covered in the next posts.
+parameters, perspective correct parameter interpolation, multi-threaded
+rasterization and a pixel shader framework that allows us to configure the per
+pixel operations in a flexible manner to support texture mapping, alpha blending
+and other stuff. These are also topics that will be covered in the next posts.
