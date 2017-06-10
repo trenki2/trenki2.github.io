@@ -2,8 +2,9 @@
 layout: post
 title:  "Developing a Software Renderer Part 1"
 date:   2017-06-06 18:14:00 +0200
+last_modified_at: 2017-06-10 10:10:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
-categories: [Development, Software Rendering]
+categories: [Software Rendering]
 tags: [rasterization, rendering, sdl2, c++]
 excerpt: |
   This article is about graphics programming. I implemented my own compact software
@@ -232,3 +233,5 @@ parameters, perspective correct parameter interpolation, multi-threaded
 rasterization and a pixel shader framework that allows us to configure the per
 pixel operations in a flexible manner to support texture mapping, alpha blending
 and other stuff. These are also topics that will be covered in the next posts.
+
+Continue reading on [Part 2]({% post_url 2017-06-10-developing-a-software-renderer-part2 %})
