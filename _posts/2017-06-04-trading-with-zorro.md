@@ -2,6 +2,7 @@
 layout: post
 title:  "Trading with Zorro"
 date:   2017-06-04 15:11:00 +0200
+last_modified_at: 2017-06-10 10:47:00 +0200
 feature_image: "https://unsplash.it/1300/400?image=744"
 categories: [Trading]
 tags: [stock, trading, trading automation, zorro]
@@ -51,8 +52,12 @@ developer and know it is not easy to make software bug free but especially for a
 trading software that manages my money I would have expected a higher quality
 standard. I need to be able to trust the software!
 
-Currently I am still using Zorro. The bugs could be resolved in cooperation with
-the Zorro Support Team and now I am successfully trading stocks.
+Some bugs could be resolved in cooperation with the Zorro Support Team but it
+seems there are still some left. With my newest trading strategy I noticed trade
+execution is not correct so I missed out on profit.
+
+Currently I am still using Zorro but I plan to replace it with my own software
+when I have the time.
 
 ## The Strategy
 
@@ -92,12 +97,13 @@ function run()
 }
 {% endhighlight %}
 
-```
+```txt
 Monte Carlo Analysis... Median AR 91%
 Profit 77920$  MI 385$  DD 9773$  Capital 10962$
 Trades 285  Win 68.1%  Avg +67.4p  Bars 4
 CAGR 13.75%  PF 1.67  SR 0.69  UI 3%  R2 0.98
 ```
+
 ![Screenshot]({{ site.url }}/assets/images/vixspy.png)
 
 __Note:__ Unfortunately Yahoo does not provide free history data any more, so
