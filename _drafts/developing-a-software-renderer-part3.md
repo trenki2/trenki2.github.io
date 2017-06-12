@@ -37,9 +37,45 @@ method inside the inner loop and this should give the best performance.
 The pixel shader class will then look like this:
 
 ```cpp
+class PixelShader : public PixelShaderBase<PixelShader> {
+public:
+	static const bool InterpolateZ = false;
+	static const bool InterpolateW = false;
+	static const int VarCount = 3;
+	
+	static SDL_Surface* surface;
+
+	static void drawPixel(const PixelData &p)
+	{
+		int rint = (int)(p.var[0] * 255);
+		int gint = (int)(p.var[1] * 255);
+		int bint = (int)(p.var[2] * 255);
+		
+		Uint32 color = rint << 16 | gint << 8 | bint;
+
+		Uint32 *buffer = (Uint32*)((Uint8 *)surface->pixels + (int)p.y * surface->pitch + (int)p.x * 4);
+		*buffer = color;
+	}
+};
 ```
 
-And we can set the pixel shader and then draw like this:
+The pixel shader can tell the rasterizer of the z and w component are supposed
+to be interpolated and it can also tell the rasterizer how many per vertex
+attributes to interpolate (`VarCount`). Our updated `Vertex` structure now
+supports arbitrary variables not just RGB color.
+
+```cpp
+struct Vertex {
+  float x;
+  float y;
+  float z;
+  float w;
+
+  float var[MaxVar];
+};
+```
+
+To use the pixel shader we can use the following code:
 
 ```cpp
 rasterizer.setPixelShader<PixelShader>();
@@ -51,8 +87,6 @@ function pointer to the actual `drawTriangleTemplate<PixelShader>` function and
 stores it in a variable so that the `drawTriangle` call does not require the
 template any longer and will just forward the call to the stored member
 function.
-
-[Part 2]({% post_url 2017-06-10-developing-a-software-renderer-part2 %}
 
 ## Parallelization Using OpenMP
 
