@@ -2,6 +2,7 @@
 layout: post
 title:  "Developing a Software Renderer Part 2"
 date:   2017-06-10 10:09:00 +0200
+last_modified_at: 2017-06-15 09:56:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
 categories: [Software Rendering]
 tags: [rasterization, rendering, c++]
@@ -349,3 +350,6 @@ multi-threaded rasterization and a pixel shader framework that allows us to
 configure the per pixel operations in a flexible manner to support texture
 mapping, alpha blending and other stuff. These are topics that will be covered
 in the next posts.
+
+Continue on [Part 3]({% post_url 2017-06-15-developing-a-software-renderer-part3
+%})
