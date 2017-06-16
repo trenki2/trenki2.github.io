@@ -276,20 +276,6 @@ This is not so simple with the scanline based approach.
 
 One would have to compare the approaches in this specific situation.
 
-## Faster Float to Int Conversion
-
-The `drawPixel` method of the pixel shader uses three float to integer casts for
-the rgb color computation. These casts are more expensive then necessary and can
-be speed up using SSE for float to integer conversion using intrinsics. This
-change gave almost a 10% performance improvement.
-
-```cpp
-static int float2int(float v)
-{
-  return _mm_cvtt_ss2si(_mm_load_ss(&v));
-}
-```
-
 ## Fixed Point Calculations
 
 I tried out if replacing the floating point calculations in the innermost loops
