@@ -2,7 +2,7 @@
 layout: post
 title:  "Developing a Software Renderer Part 2"
 date:   2017-06-10 10:09:00 +0200
-last_modified_at: 2017-06-25 16:33:00 +0200
+last_modified_at: 2017-06-15 09:56:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
 categories: [Software Rendering]
 tags: [rasterization, rendering, c++]
@@ -275,20 +275,12 @@ compute the edge equations.
 
     int result = e00.test(eqn) + e01.test(eqn) + e10.test(eqn) + e11.test(eqn);
 
-    // Potentially all out.
+    // All out.
 
     if (result == 0)
-    {
-      bool v0In = v0.x >= x && v0.x < x + s && v0.y >= y && v0.y < y + s;
-      bool v1In = v1.x >= x && v1.x < x + s && v1.y >= y && v1.y < y + s;
-      bool v2In = v2.x >= x && v2.x < x + s && v2.y >= y && v2.y < y + s;
-      
-      // Check for special case.
+      continue;
 
-      if (v0In || v1In || v2In)
-         rasterizeBlock<true>(eqn, x, y);
-    }
-    else if (result == 4)
+    if (result == 4)
       // Fully Covered
 
       rasterizeBlock<false>(eqn, x, y);
