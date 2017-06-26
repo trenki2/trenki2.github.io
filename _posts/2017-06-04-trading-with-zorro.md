@@ -4,7 +4,7 @@ title:  "Trading with Zorro"
 date:   2017-06-04 15:11:00 +0200
 last_modified_at: 2017-06-10 10:47:00 +0200
 feature_image: "https://unsplash.it/1300/400?image=744"
-categories: [Trading]
+category: Trading
 tags: [stock, trading, trading automation, zorro]
 excerpt: |
   Zorro is like the swiss army knife for trading. The Lite-C scripting 

@@ -4,7 +4,7 @@ title:  "Developing a Software Renderer Part 1"
 date:   2017-06-06 18:14:00 +0200
 last_modified_at: 2017-06-10 10:10:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
-categories: [Software Rendering]
+category: Software Rendering
 tags: [rasterization, rendering, sdl2, c++]
 excerpt: |
   This article is about graphics programming. I implemented my own compact software
