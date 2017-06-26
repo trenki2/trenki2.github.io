@@ -270,7 +270,7 @@ With the scanline based approach I get between 10-15% better performance when
 filling random triangles. Still that does not mean, that the scanline based
 approach is better in all the cases.
 
-With the block based approach it would be relativly easy to support some form of
+With the block based approach it would be relatively easy to support some form of
 a hierarchical z-buffer and cull whole blocks much faster if there is overdraw.
 This is not so simple with the scanline based approach.
 
