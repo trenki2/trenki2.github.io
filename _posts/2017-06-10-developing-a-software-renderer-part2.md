@@ -2,7 +2,7 @@
 layout: post
 title:  "Developing a Software Renderer Part 2"
 date:   2017-06-10 10:09:00 +0200
-last_modified_at: 2017-06-15 09:56:00 +0200
+last_modified_at: 2017-06-30 16:56:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
 category: Software Rendering
 tags: [rasterization, rendering, c++]
@@ -273,21 +273,39 @@ compute the edge equations.
     EdgeData e10 = e00; e10.stepX(eqn, s);
     EdgeData e11 = e01; e11.stepX(eqn, s);
 
-    int result = e00.test(eqn) + e01.test(eqn) + e10.test(eqn) + e11.test(eqn);
+    bool e00_0 = eqn.e0.test(e00.ev0), e00_1 = eqn.e1.test(e00.ev1), e00_2 = eqn.e2.test(e00.ev2), e00_all = e00_0 && e00_1 && e00_2;
+    bool e01_0 = eqn.e0.test(e01.ev0), e01_1 = eqn.e1.test(e01.ev1), e01_2 = eqn.e2.test(e01.ev2), e01_all = e01_0 && e01_1 && e01_2;
+    bool e10_0 = eqn.e0.test(e10.ev0), e10_1 = eqn.e1.test(e10.ev1), e10_2 = eqn.e2.test(e10.ev2), e10_all = e10_0 && e10_1 && e10_2;
+    bool e11_0 = eqn.e0.test(e11.ev0), e11_1 = eqn.e1.test(e11.ev1), e11_2 = eqn.e2.test(e11.ev2), e11_all = e11_0 && e11_1 && e11_2;
 
-    // All out.
+    int result = e00_all + e01_all + e10_all + e11_all;
+
+    // Potentially all out.
 
     if (result == 0)
-      continue;
+    {
+      // Test for special case.
+      
+      bool e00Same = e00_0 == e00_1 == e00_2;
+      bool e01Same = e01_0 == e01_1 == e01_2;
+      bool e10Same = e10_0 == e10_1 == e10_2;
+      bool e11Same = e11_0 == e11_1 == e11_2;
 
-    if (result == 4)
+      if (!e00Same || !e01Same || !e10Same || !e11Same)
+        PixelShader::template drawBlock<true>(eqn, x, y);
+    }
+    else if (result == 4)
+    {
       // Fully Covered
 
       rasterizeBlock<false>(eqn, x, y);
+    }
     else
+    {
       // Partially Covered
 
       rasterizeBlock<true>(eqn, x, y);
+    }
   }
 }
 ```
