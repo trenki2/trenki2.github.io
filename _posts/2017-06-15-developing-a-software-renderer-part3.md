@@ -311,6 +311,6 @@ In the next parts I will develop the vertex processing stage with a vertex cache
 and vertex shader support so that some more complex 3D models can be rendered.
 
 Continue on [Part 4]({% post_url 2017-07-03-developing-a-software-renderer-part4
-%})
+%}).
 
 Checkout the source at my [github repo](https://github.com/trenki2/SoftwareRenderer).

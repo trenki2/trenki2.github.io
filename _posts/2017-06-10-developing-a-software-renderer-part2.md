@@ -372,6 +372,6 @@ mapping, alpha blending and other stuff. These are topics that will be covered
 in the next posts.
 
 Continue on [Part 3]({% post_url 2017-06-15-developing-a-software-renderer-part3
-%})
+%}).
 
 Checkout the source at my [github repo](https://github.com/trenki2/SoftwareRenderer).

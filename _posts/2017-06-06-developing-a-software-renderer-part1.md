@@ -236,6 +236,6 @@ rasterization and a pixel shader framework that allows us to configure the per
 pixel operations in a flexible manner to support texture mapping, alpha blending
 and other stuff. These are also topics that will be covered in the next posts.
 
-Continue reading on [Part 2]({% post_url 2017-06-10-developing-a-software-renderer-part2 %})
+Continue reading on [Part 2]({% post_url 2017-06-10-developing-a-software-renderer-part2 %}).
 
 Checkout the source at my [github repo](https://github.com/trenki2/SoftwareRenderer).
