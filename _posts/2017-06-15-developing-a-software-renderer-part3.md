@@ -307,3 +307,6 @@ a scanline based approach and fixed point math makes quite a big difference.
 
 In the next parts I will develop the vertex processing stage with a vertex cache 
 and vertex shader support so that some more complex 3D models can be rendered.
+
+Continue on [Part 4]({% post_url 2017-07-03-developing-a-software-renderer-part4
+%})
