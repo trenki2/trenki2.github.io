@@ -1,0 +1,17 @@
+<h3>Related posts</h3>
+<ul class="list  list--posts">
+  {% assign sorted = (site.posts | sort: 'date') %}
+  {% for page in sorted' %}
+    {% if page.category == "Software Rendering" %}
+      <li class="item  item--post">
+        <article class="article  article--post  typeset">
+
+          <h4><a href="{{ site.baseurl }}{{ page.url }}" title="Related post - {{ page.title }}">{{ page.title_aside }}</a></h4>
+          {% include post-meta.html %}
+          <!--{{ post.excerpt | markdownify | truncatewords: 20 }} -->
+
+        </article>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

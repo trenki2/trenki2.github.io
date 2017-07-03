@@ -1,11 +1,13 @@
 ---
 layout: post
 title:  "Developing a Software Renderer Part 2"
+title_aside: "Part 2"
 date:   2017-06-10 10:09:00 +0200
 last_modified_at: 2017-06-30 16:56:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
 category: Software Rendering
 tags: [rasterization, rendering, c++]
+aside: true
 ---
 In the second part of this series, I will describe how to optimize and improve
 the software rasterizer that we developed in the first part.

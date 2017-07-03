@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Developing a Software Renderer Part 1"
+title_aside: "Part 1"
 date:   2017-06-06 18:14:00 +0200
 last_modified_at: 2017-06-10 10:10:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
@@ -10,6 +11,7 @@ excerpt: |
   This article is about graphics programming. I implemented my own compact software
   renderer/rasterizer with some nice features like pixel and vertex shaders in C++
   and in this article I describe how I did it.
+aside: true
 ---
 
 Today software rendering has mostly been replaced by GPUs but there are still

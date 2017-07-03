@@ -1,9 +1,15 @@
 <aside class="aside  typeset{% if include.align == "left" %}  aside--left{% endif %}">
 
   {% if page.layout == "post" %}
-    <section class="section  section--related-posts">
-      {% include post-related.html %}
-    </section>
+    {% if page.category == "Software Rendering" %}
+      <section class="section  section--related-posts">
+       {% include post-related-sw-rendering.html %}
+      </section>
+    {% else %}
+      <section class="section  section--related-posts">
+       {% include post-related.html %}
+      </section>
+    {% endif %}
 
   {% elsif page.layout == "page" or page.layout == "home" or page.layout == "blog" %}
     <section class="section  section--description">
