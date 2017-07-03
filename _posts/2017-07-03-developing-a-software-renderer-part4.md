@@ -2,7 +2,7 @@
 layout: post
 title:  "Developing a Software Renderer Part 4"
 title_aside: "Part 4"
-date:   2017-07-03 9:56:00 +0200
+date:   2017-07-03 12:51:00 +0200
 #last_modified_at: 2017-06-10 10:10:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
 category: Software Rendering
