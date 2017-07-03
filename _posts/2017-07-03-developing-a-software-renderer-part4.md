@@ -194,3 +194,5 @@ have to compute `p' = p/w / 1/w = p/w * w`.
 The end result looks like this:
 
 ![Screenshot]({{ site.url }}/assets/images/software-rendering/box.png){: .align-center}
+
+Checkout the source at my [github repo](https://github.com/trenki2/SoftwareRenderer).
