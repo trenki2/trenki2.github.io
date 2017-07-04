@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Using SDL2_image with CMake"
-date:   2017-06-28 14:20:00 +0200
+date:   2017-07-04 10:13:00 +0200
 #last_modified_at: 2017-06-27 17:38:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=990"
 category: Development

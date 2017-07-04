@@ -327,3 +327,5 @@ int main(int argc, char *argv[])
   return 0;
 }
 {% endhighlight %}
+
+If you also want to use SDL2_image check out my other post [Using SDL2_image with CMake]({% post_url 2017-07-04-using-sdl2-image-with-cmake %}).
