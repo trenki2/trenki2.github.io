@@ -2,7 +2,7 @@
 layout: post
 title:  "Trading with Zorro"
 date:   2017-06-04 15:11:00 +0200
-last_modified_at: 2017-06-10 10:47:00 +0200
+last_modified_at: 2017-07-06 16:27:00 +0200
 feature_image: "https://unsplash.it/1300/400?image=744"
 category: Trading
 tags: [stock, trading, trading automation, zorro]
@@ -52,12 +52,13 @@ developer and know it is not easy to make software bug free but especially for a
 trading software that manages my money I would have expected a higher quality
 standard. I need to be able to trust the software!
 
-Some bugs could be resolved in cooperation with the Zorro Support Team but it
-seems there are still some left. With my newest trading strategy I noticed trade
-execution is not correct so I missed out on profit.
+Some bugs could be resolved in cooperation with the Zorro Support Team but 
+there are still enough left. With my newest trading strategy I noticed trade
+execution is not correct so I missed out on profit and also made a loss because 
+Zorro decided to go short in my long only strategy. 
 
-Currently I am still using Zorro but I plan to replace it with my own software
-when I have the time.
+Zorro is the most broken software that I ever used, I regret that I bought the 
+sponsored edition. I intend to replace Zorro with my own software.
 
 ## The Strategy
 
