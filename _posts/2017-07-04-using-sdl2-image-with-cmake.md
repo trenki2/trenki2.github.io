@@ -32,7 +32,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 ```
 
 When this is done you can find the `SDL2_image` package with the `find_package`
-command.
+command. You might also have to set the `SDL2_DIR` cmake variable so that the
+SDL directory is found.
 
 ```cmake
 find_package(SDL2 REQUIRED)
