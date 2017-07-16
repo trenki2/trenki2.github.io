@@ -15,7 +15,7 @@ exclude:
 - Gemfile.lock
 
 # 2. Installed Gems
-plugins:
+gems:
 - jekyll-sitemap
 - jekyll-mentions
 - jekyll-paginate
