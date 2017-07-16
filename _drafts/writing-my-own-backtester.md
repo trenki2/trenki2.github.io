@@ -16,20 +16,86 @@ sponsored Edition.
 
 <!-- more -->
 
-## Getting Data
+## Getting Historical Data
 
 I decided to write a very simple backtester which can only handle daily EOD
-Data. To be able to backtest my strategy first I needed historical data. There
+data. To be able to backtest my strategy I needed historical data. There
 are some free sources of historical data online.
 
-In the past once could download EOD data from **Yahoo Finance**. They changed
+In the past one could download EOD data from **Yahoo Finance**. They changed
 their service recently and now it is a bit harder to get the data bit it is
-still possible. There is a github repository which provides C# code to download
-stock quotes [here](https://github.com/dennislwy/YahooFinanceAPI).
+still possible. There is the
+[YahooFinanceAPI](https://github.com/dennislwy/YahooFinanceAPI) on github
+writen in C# to download stock quotes.
 
 Another free source of EOD data is **Google Finance**. An example url to query data is
 [http://www.google.com/finance/historical?q=NASDAQ%3aADBE&startdate=Jan+01%2C+2009&enddate=Aug+2%2C+2012&output=csv](http://www.google.com/finance/historical?q=NASDAQ%3aADBE&startdate=Jan+01%2C+2009&enddate=Aug+2%2C+2012&output=csv).
 
 There is also [**Quandl**](https://www.quandl.com/) and [**Alpha
-Vantage**](https://www.alphavantage.co/) which provide free daily data.
-Both require an API key.
+Vantage**](https://www.alphavantage.co/) which provide an API to download free
+daily EOD data. Both require an API key.
+
+## Trade Engine Core
+
+When developing a trading strategy, I want to be able to backtest it and then
+trade the same strategy live without modification.
+
+I created an abstract TradeEngine that can execute a trading algorithm and the
+core code is the same for backtesting and live trading. In backtesting mode a
+`Backtester` class calls the `Tick` method repeatedly to simulate the next
+trading day while in live trading the `Tick` method is run once per day.
+
+Using this technique I can verify and debug the core engine with historical data
+and then expect that live trading also works just fine. The only difference will
+be the data. Trade entry and exit and all other things will be the same as in
+the simulation.
+
+```csharp
+public class TradeEngine : ITradeApi
+{
+  public IStrategy Strategy { get; private set; }
+
+  public Dictionary<string, IAsset> Assets { get; private set; } = new Dictionary<string, IAsset>();
+  public TradeManager TradeManager { get; private set; }
+
+  public TradeEngine(IStrategy strategy, TradeManager tradeManager)
+  {
+    Strategy = strategy;
+    TradeManager = tradeManager;
+  }
+
+  public void Initialize()
+  {
+    Strategy.Initialize();
+
+    Balance = Capital;
+    Equity = Balance;
+  }
+
+  public void Tick(DateTime now)
+  {
+    if (now.DayOfWeek == DayOfWeek.Saturday || now.DayOfWeek == DayOfWeek.Sunday)
+      return;
+
+    Now = now;
+
+    var tradeData = new TradeData();
+    foreach (var kvp in Assets)
+    {
+      var asset = kvp.Value;
+      asset.Tick(now);
+      if (asset.IsHistoryReady && asset.IsMarketOpen)
+        tradeData.History[asset.Symbol] = asset.History;
+    }
+
+    TradeManager.Tick(now);
+    Equity = Balance + TradeManager.OpenProfit();
+    Strategy.HandleData(tradeData);
+  }
+
+  public void Finish()
+  {
+    Strategy.Finish();
+  }
+}
+```
