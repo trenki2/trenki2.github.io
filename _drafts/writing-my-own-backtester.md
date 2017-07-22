@@ -10,9 +10,8 @@ tags: [stock, trading, trading automation, zorro, backtesting]
 
 I decided to write my own backtesting and live trading system for Interactive
 Brokers to replace Zorro. With Zorro I was having serious issues while live
-trading, I noticed that trade execution is wrong. With Zorro I stumbled over too
-many bugs, so I don't trust the software any longer. I regret that I bought the
-sponsored Edition.
+trading, I noticed that trade execution is wrong. I stumbled over too many bugs,
+so I don't trust Zorro any longer, that is why it needs to be replaced.
 
 <!-- more -->
 
@@ -23,7 +22,7 @@ data. To be able to backtest my strategy I needed historical data. There
 are some free sources of historical data online.
 
 In the past one could download EOD data from **Yahoo Finance**. They changed
-their service recently and now it is a bit harder to get the data bit it is
+their service recently and now it is a bit harder to get the data but it is
 still possible. There is the
 [YahooFinanceAPI](https://github.com/dennislwy/YahooFinanceAPI) on github
 writen in C# to download stock quotes.
@@ -40,9 +39,9 @@ daily EOD data. Both require an API key.
 When developing a trading strategy, I want to be able to backtest it and then
 trade the same strategy live without modification.
 
-I created an abstract TradeEngine that can execute a trading algorithm and the
-core code is the same for backtesting and live trading. In backtesting mode a
-`Backtester` class calls the `Tick` method repeatedly to simulate the next
+I created an abstract TradeEngine class that can execute a trading algorithm and
+the core code is the same for backtesting and live trading. In backtesting mode
+a `Backtester` class calls the `Tick` method repeatedly to simulate the next
 trading day while in live trading the `Tick` method is run once per day.
 
 Using this technique I can verify and debug the core engine with historical data
@@ -67,9 +66,7 @@ public class TradeEngine : ITradeApi
   public void Initialize()
   {
     Strategy.Initialize();
-
-    Balance = Capital;
-    Equity = Balance;
+    TradeManager.SetInitialBalance(Capital);
   }
 
   public void Tick(DateTime now)
@@ -89,7 +86,6 @@ public class TradeEngine : ITradeApi
     }
 
     TradeManager.Tick(now);
-    Equity = Balance + TradeManager.OpenProfit();
     Strategy.HandleData(tradeData);
   }
 
@@ -99,3 +95,9 @@ public class TradeEngine : ITradeApi
   }
 }
 ```
+
+## Drawing Equity Curve
+
+I also needed some visual representation of the equity and drawdown curves. For
+this I used the [ZedGraph](https://github.com/ZedGraph/ZedGraph) library. With
+ZedGraph it was quite easy to draw some plots.
