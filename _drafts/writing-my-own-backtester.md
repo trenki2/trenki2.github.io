@@ -101,3 +101,9 @@ public class TradeEngine : ITradeApi
 I also needed some visual representation of the equity and drawdown curves. For
 this I used the [ZedGraph](https://github.com/ZedGraph/ZedGraph) library. With
 ZedGraph it was quite easy to draw some plots.
+
+![Screenshot]({{ site.url }}/assets/images/trading/trade.png)
+
+After writing approximately 2000 Lines of code I have a functioning backtester
+and a few strategies. The above equity curve is from my Bollinger Band mean
+reversion strategy.
