@@ -105,7 +105,7 @@ Trades 285  Win 68.1%  Avg +67.4p  Bars 4
 CAGR 13.75%  PF 1.67  SR 0.69  UI 3%  R2 0.98
 ```
 
-![Screenshot]({{ site.url }}/assets/images/vixspy.png)
+![Screenshot]({{ site.url }}/assets/images/trading/vixspy.png)
 
 __Note:__ Unfortunately Yahoo does not provide free history data any more, so
 this script does not work any longer as is. You would have to remove the
