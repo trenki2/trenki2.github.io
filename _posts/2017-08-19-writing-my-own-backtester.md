@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Writing My Own Backtester"
-date:   2017-07-16 13:34:00 +0200
-last_modified_at: 2017-07-06 16:27:00 +0200
+date:   2017-08-19 08:35:00 +0200
+last_modified_at: 2017-08-19 08:35:00 +0200
 feature_image: "https://unsplash.it/1300/400?image=1057"
 category: Trading
 tags: [stock, trading, trading automation, zorro, backtesting]
@@ -107,3 +107,16 @@ ZedGraph it was quite easy to draw some plots.
 After writing approximately 2000 Lines of code I have a functioning backtester
 and a few strategies. The above equity curve is from my Bollinger Band mean
 reversion strategy.
+
+## Live Trading with IB Api
+
+Interactive Brokers offers an API for various programming languages that can be
+used to automated trading. I decided to use the C# IB Api for my trading system.
+
+My strategy is designed to trade at the close, but since that is not possible I
+decided to execute my strategy a bit before the close. Once per day, 10 minutes
+before the close I download the historical market data for all the stocks that I
+am interested in and then execute the tick event of my strategy.
+
+Now after approximately 4000 Lines of code I have a working trading system and
+can replace Zorro :)
