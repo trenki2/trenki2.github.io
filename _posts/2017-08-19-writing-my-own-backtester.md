@@ -27,9 +27,6 @@ still possible. There is the
 [YahooFinanceAPI](https://github.com/dennislwy/YahooFinanceAPI) on github
 writen in C# to download stock quotes.
 
-Another free source of EOD data is **Google Finance**. An example url to query data is
-[http://www.google.com/finance/historical?q=NASDAQ%3aADBE&startdate=Jan+01%2C+2009&enddate=Aug+2%2C+2012&output=csv](http://www.google.com/finance/historical?q=NASDAQ%3aADBE&startdate=Jan+01%2C+2009&enddate=Aug+2%2C+2012&output=csv).
-
 There is also [**Quandl**](https://www.quandl.com/) and [**Alpha
 Vantage**](https://www.alphavantage.co/) which provide an API to download free
 daily EOD data. Both require an API key.
@@ -118,5 +115,8 @@ decided to execute my strategy a bit before the close. Once per day, 10 minutes
 before the close I download the historical market data for all the stocks that I
 am interested in and then execute the tick event of my strategy.
 
-Now after approximately 4000 Lines of code I have a working trading system and
-can replace Zorro :)
+Now after approximately 6000 Lines of code I have a working trading system
+called ArgonTrader and can replace Zorro :)
+
+I run it on my Raspberry Pi. You can read about my setup [here]({% post_url
+2018-01-04-trading-with-raspberry-pi %}).
