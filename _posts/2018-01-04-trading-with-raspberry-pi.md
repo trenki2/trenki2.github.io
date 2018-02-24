@@ -97,32 +97,42 @@ sudo apt-get update
 sudo apt-get install oracle-java8-installer
 ```
 
+You can then check the installed version with
+
+```bash
+java -version
+```
+
 ## IB Gateway
 
 Installing the IB Gateway is a bit tricky. The default setup for linux includes
 its own JVM and does not support ARM. It cannot be installed on the Raspberry
-Pi.
+Pi without modification.
 
 There is a IB Gateway Standalone version. It is possible to run this one on the
 Raspberry Pi but unfortunately in my tests it did not work well with the current
 API 9.72 and had errors when I was trying to make trades.
 
-I wanted the most current stable version of IB Gateway on the Raspberry Pi. I
-solved the problem by installing Ubuntu x64 on a virtual machine with the same
-username as the Raspberry Pi and then installing the current stable IB Gateway.
-I then copied the installed files containing the jar files to the Raspberry Pi
-and modified the startup script.
+I wanted the most current stable version of IB Gateway on the Raspberry Pi.
+To make the installer work on ARM it is possible to edit it with vim in binary mode:
 
-At the beginning of the startup script there is a line that accepts a path to an
-alternate JVM to use:
+```bash
+vim -b ibgateway-stable-standalone-linux-x64.sh
+```
+
+At the beginning there is a line with `INSTALL4J_JAVA_HOME_OVERRIDE`. I
+uncommented it and pointed it to the installed Java Virtual Machine.
 
 ```bash
 INSTALL4J_JAVA_HOME_OVERRIDE=/usr/lib/jvm/java-8-oracle/
 ```
-The script also contains code to test the jvm in `test_jvm()` at a specified
-location. The script does a version check which checks for a specific jvm
-version. Since the one from the ppa repository is not exactly the same as the
-one checked for in the script, I removed the checks with comments.
+
+A bit further down in the script there is a `test_jvm()` function which does a
+version check. Modifying the version numbers that are checked for, so that the
+installed jvm will be accepted, allows one to run the script.
+
+After successful installation the same modifications have to be done to the
+launcher script for IB Gateway.
 
 ## Conclusion
 
