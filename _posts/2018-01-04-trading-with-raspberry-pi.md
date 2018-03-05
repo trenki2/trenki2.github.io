@@ -13,6 +13,9 @@ I run it on my Raspberry Pi. In this post I describe my setup.
 
 <!-- more -->
 
+**If you want to try out ArgonTrader you can contact me with the contact form at
+the bottom of the page. I am looking for some people to team up with.**
+
 ## Ubuntu MATE on the Pi
 
 I like Ubuntu and that is why I chose to install Ubuntu MATE on the Raspberry
