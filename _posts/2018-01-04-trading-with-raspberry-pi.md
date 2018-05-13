@@ -131,8 +131,51 @@ A bit further down in the script there is a `test_jvm()` function which does a
 version check. Modifying the version numbers that are checked for, so that the
 installed jvm will be accepted, allows one to run the script.
 
-After successful installation the same modifications have to be done to the
-launcher script for IB Gateway.
+More precicely there is the following code, that needs to be changed. Just set
+the version to the one you have.
+
+```
+136   if [ "$ver_major" = "" ]; then
+137     return;
+138   fi
+139   if [ "$ver_major" -lt "1" ]; then
+140     return;
+141   elif [ "$ver_major" -eq "1" ]; then
+142     if [ "$ver_minor" -lt "8" ]; then
+143       return;
+144     elif [ "$ver_minor" -eq "8" ]; then
+145       if [ "$ver_micro" -lt "0" ]; then
+146         return;
+147       elif [ "$ver_micro" -eq "0" ]; then
+148         if [ "$ver_patch" -lt "152" ]; then
+149           return;
+150         fi
+151       fi
+152     fi
+153   fi
+154 
+155   if [ "$ver_major" = "" ]; then
+156     return;
+157   fi
+158   if [ "$ver_major" -gt "1" ]; then
+159     return;
+160   elif [ "$ver_major" -eq "1" ]; then
+161     if [ "$ver_minor" -gt "8" ]; then
+162       return;
+163     elif [ "$ver_minor" -eq "8" ]; then
+164       if [ "$ver_micro" -gt "0" ]; then
+165         return;
+166       elif [ "$ver_micro" -eq "0" ]; then
+167         if [ "$ver_patch" -gt "152" ]; then
+168           return;
+169         fi
+170       fi
+171     fi
+172   fi
+```
+
+**After successful installation the same modifications have to be done to the
+launcher script for IB Gateway.**
 
 ## Conclusion
 
