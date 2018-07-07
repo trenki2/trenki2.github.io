@@ -30,7 +30,7 @@ I implemented this in my C# code in the following way:
 ```csharp
 // Reference: Optimal Portfolio Strategy to Control Maximum Drawdown
 // https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2053854
-public class DrawdownMinimizer
+public class DrawdownController
 {
   /// <summary>
   /// Gets or sets the expected future kelly fraction (= Sharpe / Volatility)
@@ -69,7 +69,7 @@ computed from the equity curve in every step.
 maxEquity = Math.Max(maxEquity, Portfolio.Equity);
 ...
 var currentDrawdown = 1.0 - Portfolio.Equity / maxEquity;
-var leverage = drawdownMinimizer.Calculate(currentDrawdown);
+var leverage = drawdownController.Calculate(currentDrawdown);
 ```
 
 In some cases the drawdown reaches its limit and then it is possible to get
