@@ -57,6 +57,9 @@ public static class InstanceFactory
 
   public static object CreateInstance(Type type, params object[] args)
   {
+    if (args == null)
+      return CreateInstance(type);
+
     if (args.Length > 3)
       return Activator.CreateInstance(type, args);
 
@@ -64,11 +67,15 @@ public static class InstanceFactory
     var arg1 = args.Length > 1 ? args[1] : null;
     var arg2 = args.Length > 2 ? args[2] : null;
 
+    var argType0 = args.Length <= 0 ? typeof(TypeToIgnore) : (args[0] == null ? typeof(object) : args[0].GetType());
+    var argType1 = args.Length <= 1 ? typeof(TypeToIgnore) : (args[1] == null ? typeof(object) : args[1].GetType());
+    var argType2 = args.Length <= 2 ? typeof(TypeToIgnore) : (args[2] == null ? typeof(object) : args[2].GetType());
+
     var key = Tuple.Create(
       type,
-      arg0?.GetType() ?? typeof(TypeToIgnore),
-      arg1?.GetType() ?? typeof(TypeToIgnore),
-      arg2?.GetType() ?? typeof(TypeToIgnore));
+      argType0,
+      argType1,
+      argType2);
     
     if (cachedFuncs.TryGetValue(key, out CreateDelegate func))
       return func(type, arg0, arg1, arg2);
