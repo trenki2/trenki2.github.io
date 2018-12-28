@@ -14,20 +14,27 @@ lot.
 
 <!-- more -->
 
-I created a solution that can be used as a replacement for
+I created a solution that can be used as a drop in replacement for
 Activator.CreateInstance. The InstanceFactory can create objects by calling the
-constructor directly. Up tp three constructor parameters are supported.
+constructor directly using Expression Trees. Up tp three constructor parameters
+are supported. If more parameters are used it automatically falls back to using
+Activator.
 
 **Example:**
 {% highlight csharp %}
 var myInstance = InstanceFactory.CreateInstance(typeof(MyClass));
-var myArray = InstanceFactory.CreateInstance(typeof(int[]), 1024);
+var myArray1 = InstanceFactory.CreateInstance(typeof(int[]), 1024);
+var myArray2 = InstanceFactory.CreateInstance(typeof(int[]), new object[] { 1024 });
 {% endhighlight %}
 
 **Code:**
 {% highlight csharp %}
 public static class InstanceFactory
 {
+  private delegate object CreateDelegate(Type type, object arg1, object arg2, object arg3);
+
+  private static ConcurrentDictionary<Tuple<Type, Type, Type, Type>, CreateDelegate> cachedFuncs = new ConcurrentDictionary<Tuple<Type, Type, Type, Type>, CreateDelegate>();
+
   public static object CreateInstance(Type type)
   {
     return InstanceFactoryGeneric<TypeToIgnore, TypeToIgnore, TypeToIgnore>.CreateInstance(type, null, null, null);
@@ -46,6 +53,52 @@ public static class InstanceFactory
   public static object CreateInstance<TArg1, TArg2, TArg3>(Type type, TArg1 arg1, TArg2 arg2, TArg3 arg3)
   {
     return InstanceFactoryGeneric<TArg1, TArg2, TArg3>.CreateInstance(type, arg1, arg2, arg3);
+  }
+
+  public static object CreateInstance(Type type, params object[] args)
+  {
+    if (args.Length > 3)
+      return Activator.CreateInstance(type, args);
+
+    var arg0 = args.Length > 0 ? args[0] : null;
+    var arg1 = args.Length > 1 ? args[1] : null;
+    var arg2 = args.Length > 2 ? args[2] : null;
+
+    var key = Tuple.Create(
+      type,
+      arg0?.GetType() ?? typeof(TypeToIgnore),
+      arg1?.GetType() ?? typeof(TypeToIgnore),
+      arg2?.GetType() ?? typeof(TypeToIgnore));
+    
+    if (cachedFuncs.TryGetValue(key, out CreateDelegate func))
+      return func(type, arg0, arg1, arg2);
+    else
+      return CacheFunc(key)(type, arg0, arg1, arg2);
+  }
+
+  private static CreateDelegate CacheFunc(Tuple<Type, Type, Type, Type> key)
+  {
+    var types = new Type[] { key.Item1, key.Item2, key.Item3, key.Item4 };
+    var method = typeof(InstanceFactory).GetMethods()
+                                        .Where(m => m.Name == "CreateInstance")
+                                        .Where(m => m.GetParameters().Count() == 4).Single();
+    var generic = method.MakeGenericMethod(new Type[] { key.Item2, key.Item3, key.Item4 });
+
+    var paramExpr = new List<ParameterExpression>();
+    paramExpr.Add(Expression.Parameter(typeof(Type)));
+    for (int i = 0; i < 3; i++)
+      paramExpr.Add(Expression.Parameter(typeof(object)));
+
+    var callParamExpr = new List<Expression>();
+    callParamExpr.Add(paramExpr[0]);
+    for (int i = 1; i < 4; i++)
+      callParamExpr.Add(Expression.Convert(paramExpr[i], types[i]));
+    
+    var callExpr = Expression.Call(generic, callParamExpr);
+    var lambdaExpr = Expression.Lambda<CreateDelegate>(callExpr, paramExpr);
+    var func = lambdaExpr.Compile();
+    cachedFuncs.TryAdd(key, func);
+    return func;
   }
 }
 
@@ -91,5 +144,4 @@ public static class InstanceFactoryGeneric<TArg1, TArg2, TArg3>
 public class TypeToIgnore
 {
 }
-
 {% endhighlight %}
