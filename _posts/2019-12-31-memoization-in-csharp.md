@@ -77,7 +77,11 @@ public object Function(int value)
 }
 {% endhighlight %}
 
-To use the Memoizer class and extension methods you need the following code:
+To use the Memoizer class and extension methods you need the code below. The
+code allows one to memoize functions that have no parameters or just one
+parameter. If you want to memoize functions with more parameters you could
+refactor the function first to take a single Tuple as argument and than use the
+memoizer on that function.
 
 {% highlight csharp %}
 using System;
