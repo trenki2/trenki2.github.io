@@ -2,7 +2,7 @@
 layout: post
 title:  "Activator.CreateInstance Alternative"
 date:   2018-12-28 12:00:00 +0200
-date:   2018-12-28 12:00:00 +0200
+last_modified_at:   2018-12-28 12:00:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=500"
 category: Development
 tags: [csharp, c#, activator, compiled expression tree]
