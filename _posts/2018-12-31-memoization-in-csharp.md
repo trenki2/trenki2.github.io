@@ -2,7 +2,7 @@
 layout: post
 title:  "Memoization in C#"
 date:   2018-12-31 12:00:00 +0200
-date:   2018-12-31 12:00:00 +0200
+last_modified_at:   2019-01-19 10:40:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=524"
 category: Development
 tags: [csharp, c#, memoization]
@@ -114,6 +114,12 @@ namespace Memoize
         return value;
       };
     }
+
+    public static Func<A, R> ThreadSafeMemoize<A, R>(Func<A, R> func)
+    {
+      var cache = new ConcurrentDictionary<A, R>();
+      return argument => cache.GetOrAdd(argument, func);
+    }
   }
 
   public static class MemoizerExtensions
@@ -126,6 +132,11 @@ namespace Memoize
     public static Func<A, R> Memoize<A, R>(this Func<A, R> func)
     {
       return Memoizer.Memoize(func);
+    }
+
+    public static Func<A, R> ThreadSafeMemoize<A, R>(this Func<A, R> func)
+    {
+      return Memoizer.ThreadSafeMemoize(func);
     }
   }
 }
