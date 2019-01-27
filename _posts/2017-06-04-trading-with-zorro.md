@@ -58,7 +58,8 @@ execution is not correct so I missed out on profit and also made a loss because
 Zorro decided to go short in my long only strategy. 
 
 Zorro is the most broken software that I ever used, I regret that I bought the 
-sponsored edition. I intend to replace Zorro with my own software.
+sponsored edition. I replaced it with my own software called ArgonTrader.
+You can get it [here](https://www.fiverr.com/trenki2/provide-an-algorithmic-stock-trading-framework-and-strategies).
 
 ## The Strategy
 
