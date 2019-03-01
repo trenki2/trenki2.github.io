@@ -2,7 +2,7 @@
 layout: post
 title:  "Trading with Zorro"
 date:   2017-06-04 15:11:00 +0200
-last_modified_at: 2017-07-06 16:27:00 +0200
+last_modified_at: 2019-03-01 17:02:00 +0200
 feature_image: "https://unsplash.it/1300/400?image=744"
 category: Trading
 tags: [stock, trading, trading automation, zorro]
@@ -59,7 +59,6 @@ Zorro decided to go short in my long only strategy.
 
 Zorro is the most broken software that I ever used, I regret that I bought the 
 sponsored edition. I replaced it with my own software called ArgonTrader.
-You can get it [here](https://www.fiverr.com/trenki2/provide-an-algorithmic-stock-trading-framework-and-strategies).
 
 ## The Strategy
 
