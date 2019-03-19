@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Particle Swarm Optimization in C#"
-date:   2019-03-16 12:30:00 +0200
+date:   2019-03-19 15:00:00 +0200
 #last_modified_at:   2019-01-02 17:00:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=225"
 category: Development
@@ -42,7 +42,7 @@ iterations and in each iteration the currenly best found solution is printed to
 the console.
 
 The full source to the particle swarm follows below. It can also be found on my
-github repository.
+github repository ([here](https://github.com/trenki2/ParticleSwarmOptimization)).
 
 {% highlight csharp %}
 using System;
