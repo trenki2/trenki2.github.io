@@ -1,7 +1,8 @@
 ---
 layout: post
-title:  "Trading with Raspberry Pi"
+title:  "Trading on Raspberry Pi with Ubuntu 16.04"
 date:   2018-01-04 16:00:00 +0200
+last_modified_at:   2019-05-14 13:39:00 +0200
 feature_image: "https://unsplash.it/1300/400?image=1057"
 category: Trading
 tags: [stock, trading, trading automation, backtesting]
