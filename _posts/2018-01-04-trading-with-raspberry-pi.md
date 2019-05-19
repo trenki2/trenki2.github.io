@@ -2,7 +2,7 @@
 layout: post
 title:  "Trading on Raspberry Pi with Ubuntu 16.04"
 date:   2018-01-04 16:00:00 +0200
-last_modified_at:   2019-05-14 13:39:00 +0200
+last_modified_at:   2019-05-19 10:00:00 +0200
 feature_image: "https://unsplash.it/1300/400?image=1057"
 category: Trading
 tags: [stock, trading, trading automation, backtesting]
@@ -15,7 +15,7 @@ I run it on my Raspberry Pi. In this post I describe my setup.
 <!-- more -->
 
 This post uses **Ubuntu 16.04** as a base. If you want to use **Ubuntu 18.04**
-release instead you should check out my other post [here]({% post_url
+instead you should check out my [other post]({% post_url
 2019-05-14-trading-with-raspberry-pi %}).
 
 ## Ubuntu MATE on the Pi
