@@ -16,7 +16,7 @@ this post I describe how to set things up using **Ubuntu MATE 18.04**.
 
 ## Install Ubuntu on the Raspberry Pi
 
-I used the Raspberry Pi 3 (Hard-Float) preinstalled server image from
+I used the 32 bit Raspberry Pi 3 (Hard-Float) preinstalled server image from
 [here](http://cdimage.ubuntu.com/releases/18.04/release/). This image was the
 only one that allowed me to install `raspi-config` and also Oracle Java 8.
 
