@@ -2,6 +2,7 @@
 layout: post
 title:  "Trading on Raspberry Pi with Ubuntu 18.04"
 date:   2019-05-14 14:15:00 +0200
+last_modified_at:   2019-08-21 12:50:00 +0200
 feature_image: "https://picsum.photos/id/705/1300/400"
 category: Trading
 tags: [stock, trading, trading automation, backtesting]
@@ -13,20 +14,17 @@ this post I describe how to set things up using **Ubuntu MATE 18.04**.
 
 <!-- more -->
 
-## Install Ubuntu MATE on the Raspberry Pi
+## Install Ubuntu on the Raspberry Pi
 
-You can get the newest Ubuntu MATE from the official site
-[here](https://ubuntu-mate.org/raspberry-pi/). 
+I used the Raspberry Pi 3 (Hard-Float) preinstalled server image from
+[here](http://cdimage.ubuntu.com/releases/18.04/release/). This image was the
+only one that allowed me to install `raspi-config` and also Oracle Java 8.
 
 You can put the image on a SDHC card, connect keyboard, mouse and monitor to the
-Raspberry Pi and boot into the GUI. Afterwards you will probably want to enable
-SSH using `raspi-config`.
+Raspberry Pi and boot. You can then login with the username and password
+"ubuntu" and change the password afterwards.
 
-For me the Ubuntu MATE image unfortunately did not work. I got a blank screen
-and could not work with it. I decided to install the Ubuntu Server image for the Raspberry Pi
-from [here](https://www.ubuntu.com/download/iot/raspberry-pi-2-3).
-
-After following the instructions you I installed the MATE desktop using these commands:
+To install the Ubuntu MATE desktop you can use the following commands.
 
 ```bash
 sudo apt install tasksel
@@ -36,8 +34,7 @@ sudo tasksel install ubuntu-mate-desktop
 
 ## Raspi-Config
 
-If you installed the Ubuntu server version you will need to get `raspi-config`
-yourself as it is not included.
+You will have to install `raspi-config` yourself as it is not included.
 
 To install it use these commands:
 
@@ -80,7 +77,7 @@ probably have to set this up, when it does not work out of the box.
 You have to create a `netplan` configuration file:
 
 ```bash
-sudo nano /etc/netplan/01-netcfg.yml
+sudo nano /etc/netplan/01-netcfg.yaml
 ```
 
 And put this content:
@@ -100,10 +97,18 @@ network:
 You should check `iwconfig` to make sure `wlan0` is your wifi device, otherwise
 you have to change this to the correct value in the config.
 
+After saving the configuration file you should run the following commands:
+
+```bash
+sudo netplan generate
+sudo netplan apply
+```
+
 ## Mono
 
 My own trading software is written in C# and under Linux I need Mono to run it.
-I followed the instructions to install the most up to date Mono from their [homepage](https://www.mono-project.com/download/stable/#download-lin):
+I followed the instructions to install the most up to date Mono from their
+[homepage](https://www.mono-project.com/download/stable/#download-lin):
 
 ```bash
 sudo apt install gnupg ca-certificates
@@ -150,7 +155,7 @@ A bit further down in the script there is a `test_jvm()` function which does a
 version check. Modifying the version numbers that are checked for, so that the
 installed jvm will be accepted, allows one to run the script.
 
-More precicely there is the following code, that needs to be changed. Just set
+More precisely there is the following code, that needs to be changed. Just set
 the version to the one you have.
 
 ```
