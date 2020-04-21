@@ -6,6 +6,7 @@ last_modified_at: 2017-08-19 08:35:00 +0200
 feature_image: "https://unsplash.it/1300/400?image=1057"
 category: Trading
 tags: [stock, trading, trading automation, zorro, backtesting]
+published: false
 ---
 
 I decided to write my own backtesting and live trading system for Interactive
