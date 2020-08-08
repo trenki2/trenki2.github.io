@@ -6,7 +6,8 @@ gem "jekyll", "~> 3.4"
 # The theme for the site
 gem "alembic-jekyll-theme", "~> 2.0"
 
-# Kramdown parser
+# Kramdown
+gem "kramdown", ">= 2.3.0"
 gem "kramdown-parser-gfm", "~> 1.1.0"
 
 # The plugins for the site
