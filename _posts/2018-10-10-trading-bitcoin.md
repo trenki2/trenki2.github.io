@@ -137,17 +137,7 @@ namespace ArgonTrader.Strategies
       probabilities = new List<double>();
 
       var count = (int)((4 * sigma) / TickSize);
-
-      for (int i = -count; i < 0; i++)
-      {
-        values.Add(estimate + i * TickSize);
-        probabilities.Add(normal.CumulativeDistribution(i * TickSize + TickSize * 0.5) - normal.CumulativeDistribution(i * TickSize - TickSize * 0.5));
-      }
-
-      values.Add(estimate);
-      probabilities.Add(normal.CumulativeDistribution(TickSize * 0.5) - normal.CumulativeDistribution(- TickSize * 0.5));
-
-      for (int i = 1; i <= count; i++)
+      for (int i = -count; i <= count; i++)
       {
         values.Add(estimate + i * TickSize);
         probabilities.Add(normal.CumulativeDistribution(i * TickSize + TickSize * 0.5) - normal.CumulativeDistribution(i * TickSize - TickSize * 0.5));
