@@ -2,6 +2,7 @@
 layout: post
 title:  "Trading Bitcoin"
 date:   2018-10-10 10:30:00 +0200
+last_modified_at:   2020-12-23 14:30:00 +0200
 feature_image: "https://picsum.photos/1300/400?image=1067"
 category: Trading
 tags: [bitcoin, trading, trading automation, backtesting]
@@ -46,9 +47,18 @@ My C# implementation of the **ValueEstimator** is here:
 ```csharp
 using MathNet.Numerics.Distributions;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace ArgonTrader.Strategies
 {
+  public enum Side
+  {
+    None = 0,
+    Sell = -1,
+    Buy = 1,
+  }
+
   public class ValueEstimator
   {
     private double sigma;
@@ -64,6 +74,7 @@ namespace ArgonTrader.Strategies
 
     public double TickSize { get; }
     public double Alpha { get; set; }
+    public double Eta { get; set; } = 0.5;
 
     public double Sigma
     {
@@ -89,7 +100,20 @@ namespace ArgonTrader.Strategies
 
     public void Update(Side traderSide, double price)
     {
-      CalculateProbabilities(traderSide, price, ref newProbabilities);
+      Debug.Assert(traderSide != Side.None);
+      Update(traderSide, price, price);
+    }
+
+    public void Update(Side traderSide, double bidPrice, double askPrice)
+    {
+      var midPrice = (bidPrice + askPrice) / 2.0;
+      if (midPrice < values[values.Count / 2] - 3 * Sigma || midPrice > values[values.Count / 2] + 3 * Sigma)
+      {
+        //Reset(Estimate);
+        Reset(midPrice);
+      }
+
+      CalculateProbabilities(traderSide, bidPrice, askPrice, ref newProbabilities);
       for (int i = 0; i < probabilities.Count; i++)
         probabilities[i] = newProbabilities[i];
       Estimate = DotProduct(values, probabilities);
@@ -97,13 +121,13 @@ namespace ArgonTrader.Strategies
 
     public double CalculateBid()
     {
-      var bid = DotProduct(values, CalculateProbabilities(Side.Sell, Estimate, ref newProbabilities, false));
+      var bid = DotProduct(values, CalculateProbabilities(Side.Sell, Estimate, Estimate, ref newProbabilities));
       return bid;
     }
 
     public double CalculateAsk()
     {
-      var ask = DotProduct(values, CalculateProbabilities(Side.Buy, Estimate, ref newProbabilities, false));
+      var ask = DotProduct(values, CalculateProbabilities(Side.Buy, Estimate, Estimate, ref newProbabilities));
       return ask;
     }
 
@@ -112,11 +136,26 @@ namespace ArgonTrader.Strategies
       values = new List<double>();
       probabilities = new List<double>();
 
-      for (var v = estimate - 4 * sigma; v <= estimate + 4 * sigma; v += TickSize)
+      var count = (int)((4 * sigma) / TickSize);
+
+      for (int i = -count; i < 0; i++)
       {
-        values.Add(v);
-        probabilities.Add(normal.CumulativeDistribution(v - estimate + TickSize * 0.5) - normal.CumulativeDistribution(v - estimate - TickSize * 0.5));
+        values.Add(estimate + i * TickSize);
+        probabilities.Add(normal.CumulativeDistribution(i * TickSize + TickSize * 0.5) - normal.CumulativeDistribution(i * TickSize - TickSize * 0.5));
       }
+
+      values.Add(estimate);
+      probabilities.Add(normal.CumulativeDistribution(TickSize * 0.5) - normal.CumulativeDistribution(- TickSize * 0.5));
+
+      for (int i = 1; i <= count; i++)
+      {
+        values.Add(estimate + i * TickSize);
+        probabilities.Add(normal.CumulativeDistribution(i * TickSize + TickSize * 0.5) - normal.CumulativeDistribution(i * TickSize - TickSize * 0.5));
+      }
+
+      var sum = probabilities.Sum();
+      for (int i = 0; i < probabilities.Count; i++)
+        probabilities[i] /= sum;
 
       probValue = new List<double>(new double[values.Count]);
       newProbabilities = new List<double>(new double[values.Count]);
@@ -134,24 +173,28 @@ namespace ArgonTrader.Strategies
         lookup.Add(normal.CumulativeDistribution(v));
     }
 
-    private List<double> CalculateProbabilities(Side side, double price, ref List<double> newProbabilities, bool allowReset = true)
+    private List<double> CalculateProbabilities(Side side, double bidPrice, double askPrice, ref List<double> newProbabilities)
     {
-      if (allowReset)
-      {
-        if (price < values[values.Count / 2] - 3 * Sigma || price > values[values.Count / 2] + 3 * Sigma)
-        {
-          //Reset(Estimate);
-          Reset(price);
-        }
-      }
-
       for (int i = 0; i < probValue.Count; i++)
       {
-        // Calculate probabilities for informed traders
-        var probInf = CumulativeDistribution((int)side * (values[i] - price));
+        // Probability of a trade for an informed trader
+        double probInf;
 
-        // Probability for uninformed traders
-        var probUnf = 0.5;
+        if (side == Side.None)
+        {
+          var probBuy = CumulativeDistribution((int)Side.Buy * (values[i] - askPrice));
+          var probSell = CumulativeDistribution((int)Side.Sell * (values[i] - bidPrice));
+          var probNoOrder = 1.0 - (probBuy + probSell);
+          probInf = probNoOrder;
+        }
+        else
+        {
+          var price = (side == Side.Buy ? askPrice : bidPrice);
+          probInf = CumulativeDistribution((int)side * (values[i] - price));
+        }
+
+        // Probability of a trade for uninformed trader
+        var probUnf = side != Side.None ? Eta : 1 - 2 * Eta;
 
         // Joint probability
         probValue[i] = (Alpha * probInf) + ((1 - Alpha) * probUnf);
@@ -177,7 +220,7 @@ namespace ArgonTrader.Strategies
     {
       var index = (int)((v + lookupShift) / lookupStep);
       if (index < 0 || index >= lookup.Count)
-        return normal.CumulativeDistribution(v);
+          return normal.CumulativeDistribution(v);
       return lookup[index];
     }
   }
