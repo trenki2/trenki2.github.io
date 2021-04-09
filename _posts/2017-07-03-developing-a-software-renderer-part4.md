@@ -123,7 +123,6 @@ public:
   }
 
   // Clip the poly to the plane given by the formula a * x + b * y + c * z + d * w.
-
   void clipToPlane(float a, float b, float c, float d)
   {
     if (fullyClipped())

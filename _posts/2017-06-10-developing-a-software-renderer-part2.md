@@ -34,28 +34,24 @@ struct EdgeEquation {
   [...]
 
   /// Step the equation value v to the x direction.
-
   float stepX(float v) const
   {
     return v + a;
   }
 
   /// Step the equation value v to the x direction.
-
   float stepX(float v, float stepSize) const
   {
     return v + a * stepSize;
   }
 
   /// Step the equation value v to the y direction.
-
   float stepY(float v) const
   {
     return v + b;
   }
 
   /// Step the equation value vto the y direction.
-
   float stepY(float v, float stepSize) const
   {
     return v + b * stepSize;
@@ -91,7 +87,6 @@ struct TriangleEquations {
     area = 0.5f * (e0.c + e1.c + e2.c);
 
     // Cull backfacing triangles.
-
     if (area < 0)
       return;
 
@@ -119,7 +114,6 @@ struct PixelData {
   float b;
 
   /// Initialize pixel data for the given pixel coordinates.
-
   void init(const TriangleEquations &eqn, float x, float y)
   {
     r = eqn.r.evaluate(x, y);
@@ -128,7 +122,6 @@ struct PixelData {
   }
 
   /// Step all the pixel data in the x direction.
-
   void stepX(const TriangleEquations &eqn)
   {
     r = eqn.r.stepX(r);
@@ -137,7 +130,6 @@ struct PixelData {
   }
 
   /// Step all the pixel data in the y direction.
-
   void stepY(const TriangleEquations &eqn)
   {
     r = eqn.r.stepY(r);
@@ -158,7 +150,6 @@ struct EdgeData {
   float ev2;
 
   /// Initialize the edge data values.
-
   void init(const TriangleEquations &eqn, float x, float y)
   {
     ev0 = eqn.e0.evaluate(x, y);
@@ -167,7 +158,6 @@ struct EdgeData {
   }
 
   /// Step the edge values in the x direction.
-
   void stepX(const TriangleEquations &eqn)
   {
     ev0 = eqn.e0.stepX(ev0);
@@ -176,7 +166,6 @@ struct EdgeData {
   }
 
   /// Step the edge values in the x direction.
-
   void stepX(const TriangleEquations &eqn, float stepSize)
   {
     ev0 = eqn.e0.stepX(ev0, stepSize);
@@ -185,7 +174,6 @@ struct EdgeData {
   }
 
   /// Step the edge values in the y direction.
-
   void stepY(const TriangleEquations &eqn)
   {
     ev0 = eqn.e0.stepY(ev0);
@@ -194,7 +182,6 @@ struct EdgeData {
   }
 
   /// Step the edge values in the y direction.
-
   void stepY(const TriangleEquations &eqn, float stepSize)
   {
     ev0 = eqn.e0.stepY(ev0, stepSize);
@@ -203,7 +190,6 @@ struct EdgeData {
   }
 
   /// Test for triangle containment.
-
   bool test(const TriangleEquations &eqn)
   {
     return eqn.e0.test(ev0) && eqn.e1.test(ev1) && eqn.e2.test(ev2);
@@ -223,16 +209,13 @@ and clip it to the scissor rectangle as we did in [Part 1]({% post_url
 void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
 {
   // Compute triangle equations.
-
   TriangleEquations eqn(v0, v1, v2);
 
   // Check if triangle is back-facing.
-
   if (eqn.area < 0)
     return;
 
   // Compute triangle bounding box and clip to scissor rect.
-
   [...]
 
 ```
@@ -244,7 +227,6 @@ values in BlockSize steps.
 ```cpp
 
   // Round to block grid.
-
   minX = minX & ~(BlockSize - 1);
   maxX = maxX & ~(BlockSize - 1);
   minY = minY & ~(BlockSize - 1);
@@ -264,12 +246,10 @@ compute the edge equations.
   float s = (float)BlockSize - 1;
 
   // Add 0.5 to sample at pixel centers
-
   for (float x = minX + 0.5f, xm = maxX + 0.5f; x <= xm; x += BlockSize)
   for (float y = minY + 0.5f, ym = maxY + 0.5f; y <= ym; y += BlockSize)
   {
     // Test if block is inside or outside triangle or touches it
-
     EdgeData e00; e00.init(eqn, x, y);
     EdgeData e01 = e00; e01.stepY(eqn, s);
     EdgeData e10 = e00; e10.stepX(eqn, s);
@@ -283,11 +263,9 @@ compute the edge equations.
     int result = e00_all + e01_all + e10_all + e11_all;
 
     // Potentially all out.
-
     if (result == 0)
     {
       // Test for special case.
-      
       bool e00Same = e00_0 == e00_1 == e00_2;
       bool e01Same = e01_0 == e01_1 == e01_2;
       bool e10Same = e10_0 == e10_1 == e10_2;
@@ -299,13 +277,11 @@ compute the edge equations.
     else if (result == 4)
     {
       // Fully Covered
-
       rasterizeBlock<false>(eqn, x, y);
     }
     else
     {
       // Partially Covered
-
       rasterizeBlock<true>(eqn, x, y);
     }
   }

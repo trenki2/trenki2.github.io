@@ -132,7 +132,6 @@ for (int i = 0; i < stepsX * stepsY; ++i)
   int y = minY + sy * BlockSize;
 
   // Add 0.5 to sample at pixel centers.
-
   float xf = x + 0.5f;
   float yf = y + 0.5f;
 
@@ -159,11 +158,9 @@ template <class PixelShader>
 void drawTriangleSpanTemplate(const Vertex& v0, const Vertex &v1, const Vertex &v2) const
 {
   // Compute triangle equations.
-
   TriangleEquations eqn(v0, v1, v2, PixelShader::VarCount);
 
   // Check if triangle is backfacing.
-
   if (eqn.area2 <= 0)
     return;
 
@@ -172,7 +169,6 @@ void drawTriangleSpanTemplate(const Vertex& v0, const Vertex &v1, const Vertex &
   const Vertex *b = &v2;
 
   // Sort vertices from top to bottom.
-
   if (t->y > m->y) std::swap(t, m);
   if (m->y > b->y) std::swap(m, b);
   if (t->y > m->y) std::swap(t, m);
@@ -181,7 +177,6 @@ void drawTriangleSpanTemplate(const Vertex& v0, const Vertex &v1, const Vertex &
   float iy = (m->y - t->y);
 
   // Trivial case top-flat triangle
-
   if (m->y == t->y)
   {
     const Vertex *l = m, *r = t;
@@ -189,7 +184,6 @@ void drawTriangleSpanTemplate(const Vertex& v0, const Vertex &v1, const Vertex &
     drawTopFlatTriangle<PixelShader>(eqn, *l, *r, *b);
   }
   // Trivial case bottom-flat triangle
-
   else if (m->y == b->y)
   {
     const Vertex *l = m, *r = b;
@@ -199,7 +193,6 @@ void drawTriangleSpanTemplate(const Vertex& v0, const Vertex &v1, const Vertex &
   else
   {
     // General case - split the triangle
-
     Vertex v4;
     v4.y = m->y;
     v4.x = t->x + ((b->x - t->x) / dy) * iy;
@@ -236,7 +229,6 @@ void drawBottomFlatTriangle(const TriangleEquations &eqn, const Vertex& v0, cons
     float curx2 = v0.x + invslope2 * dy + 0.5f;
 
     // Clip to scissor rect
-
     int xl = std::max(m_minX, (int)curx1);
     int xr = std::min(m_maxX, (int)curx2);
 
@@ -259,7 +251,6 @@ void drawTopFlatTriangle(const TriangleEquations &eqn, const Vertex& v0, const V
     float curx2 = v2.x + invslope2 * dy + 0.5f;
 
     // Clip to scissor rect
-
     int xl = std::max(m_minX, (int)curx1);
     int xr = std::min(m_maxX, (int)curx2);
 

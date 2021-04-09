@@ -107,21 +107,18 @@ struct EdgeEquation {
   }
 
   /// Evaluate the edge equation for the given point.
-
   float evaluate(float x, float y)
   {
     return a * x + b * y + c;
   }
 
   /// Test if the given point is inside the edge.
-
   bool test(float x, float y)
   {
     return test(evaluate(x, y));
   }
 
   /// Test for a given evaluated value.
-
   bool test(float v)
   {
     return (v > 0 || v == 0 && tie);
@@ -156,7 +153,6 @@ struct ParameterEquation {
   }
 
   /// Evaluate the parameter equation for the given point.
-
   float evaluate(float x, float y)
   {
     return a * x + b * y + c;
@@ -173,21 +169,18 @@ the tie-breaker as described in the references.
 void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
 {
   // Compute triangle bounding box.
-
   int minX = std::min(std::min(v0.x, v1.x), v2.x);
   int maxX = std::max(std::max(v0.x, v1.x), v2.x);
   int minY = std::min(std::min(v0.y, v1.y), v2.y);
   int maxY = std::max(std::max(v0.y, v1.y), v2.y);
 
   // Clip to scissor rect.
-
   minX = std::max(minX, m_minX);
   maxX = std::min(maxX, m_maxX);
   minY = std::max(minY, m_minY);
   maxY = std::min(maxY, m_maxY);
 
   // Compute edge equations.
-
   EdgeEquation e0(v0, v1);
   EdgeEquation e1(v1, v2);
   EdgeEquation e2(v2, v0);
@@ -199,12 +192,10 @@ void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
   ParameterEquation b(v0.b, v1.b, v2.b, e0, e1, e2, area);
 
   // Check if triangle is backfacing.
-
   if (area < 0)
     return;
 
   // Add 0.5 to sample at pixel centers.
-
   for (float x = minX + 0.5f, xm = maxX + 0.5f; x <= xm; x += 1.0f)
   for (float y = minY + 0.5f, ym = maxY + 0.5f; y <= ym; y += 1.0f)
   {
