@@ -186,14 +186,14 @@ void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
   EdgeEquation e2(v2, v0);
 
   float area = 0.5 * (e0.c + e1.c + e2.c);
+  
+  // Check if triangle is backfacing.
+  if (area < 0)
+    return;
 
   ParameterEquation r(v0.r, v1.r, v2.r, e0, e1, e2, area);
   ParameterEquation g(v0.g, v1.g, v2.g, e0, e1, e2, area);
   ParameterEquation b(v0.b, v1.b, v2.b, e0, e1, e2, area);
-
-  // Check if triangle is backfacing.
-  if (area < 0)
-    return;
 
   // Add 0.5 to sample at pixel centers.
   for (float x = minX + 0.5f, xm = maxX + 0.5f; x <= xm; x += 1.0f)
