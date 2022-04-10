@@ -3,7 +3,7 @@ layout: post
 title:  "Developing a Software Renderer Part 1"
 title_aside: "Part 1"
 date:   2017-06-06 18:14:00 +0200
-last_modified_at: 2017-06-10 10:10:00 +0200
+last_modified_at: 2022-04-10 9:25:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=41"
 category: Software Rendering
 tags: [rasterization, rendering, sdl2, c++]
@@ -80,7 +80,7 @@ feel like a lot of that information is not very good.
 Fortunately I was able to find two valuable resources about triangle
 rasterization that helped greatly.
 
-* [Triangle Rasterization](http://www.cs.unc.edu/~blloyd/comp770/Lecture08.pdf)
+* [Triangle Rasterization](https://www.cs.unc.edu/xcms/courses/comp770-s07/Lecture08.pdf)
 * [Accelerated Half-Space Triangle Rasterization](https://www.researchgate.net/publication/286441992_Accelerated_Half-Space_Triangle_Rasterization)
 
 The interested reader should read both of those resources to understand the
@@ -181,9 +181,9 @@ void drawTriangle(const Vertex& v0, const Vertex &v1, const Vertex &v2)
   maxY = std::min(maxY, m_maxY);
 
   // Compute edge equations.
-  EdgeEquation e0(v0, v1);
-  EdgeEquation e1(v1, v2);
-  EdgeEquation e2(v2, v0);
+  EdgeEquation e0(v1, v2);
+  EdgeEquation e1(v2, v0);
+  EdgeEquation e2(v0, v1);
 
   float area = 0.5 * (e0.c + e1.c + e2.c);
   
