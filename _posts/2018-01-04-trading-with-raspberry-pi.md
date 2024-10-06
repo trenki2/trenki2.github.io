@@ -6,6 +6,7 @@ last_modified_at:   2019-05-19 10:00:00 +0200
 feature_image: "https://unsplash.it/1300/400?image=1057"
 category: Trading
 tags: [stock, trading, trading automation, backtesting]
+published: false
 ---
 
 I wrote my own backtesting and live trading software called ArgonTrader in C#

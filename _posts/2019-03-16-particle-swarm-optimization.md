@@ -6,6 +6,7 @@ date:   2019-03-19 15:00:00 +0200
 feature_image: "https://unsplash.it/1200/400?image=225"
 category: Development
 tags: [csharp, c#, particle swarm optimization, pso]
+published: false
 ---
 
 I implemented a simple particle swarm optimizer in C# to help me optimize my

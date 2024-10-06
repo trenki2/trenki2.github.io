@@ -6,6 +6,7 @@ last_modified_at:   2020-12-23 14:30:00 +0200
 feature_image: "https://picsum.photos/1300/400?image=1067"
 category: Trading
 tags: [bitcoin, trading, trading automation, backtesting]
+published: false
 ---
 
 I got interested in trading Bitcoins and after reading a paper about market

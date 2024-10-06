@@ -10,6 +10,7 @@ excerpt: |
   Zorro is like the swiss army knife for trading. The Lite-C scripting 
   language is easy to use and allows you to express your trading idea with 
   very little code.
+published: false
 ---
 A while go I developed some interest in trading and did some research to find
 out which software I might use for automated forex or stock trading.

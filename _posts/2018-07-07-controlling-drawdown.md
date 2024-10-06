@@ -5,6 +5,7 @@ date:   2018-07-07 09:20:00 +0200
 feature_image: "https://picsum.photos/1300/400?image=1061"
 category: Trading
 tags: [stock, trading, trading automation, backtesting, drawdown]
+published: false
 ---
 
 I read the paper "Optimal Portfolio Strategy to Control Maximum Drawdown" and
